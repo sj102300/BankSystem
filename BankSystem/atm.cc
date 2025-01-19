@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "atm.h"
-#include "common_optino.h"
+#include "common_option.h"
 
 using namespace std;
 using namespace BankSystem;
