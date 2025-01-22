@@ -9,15 +9,29 @@ namespace BankSystem {
 class Customer {
  public:
   Customer(const std::string& name);
-  Customer(const std::string& name, const Account::Info account_info);
   ~Customer();
   
-  const std::string GetCustomerName() const;
-  Account& GetAccount();
-  void SetAccount(const Account::Info& account_info);
+  const int GetAccountSize() const;
+  const std::string& GetCustomerName() const;
+  Account& GetAccount(int idx);
+
+  //validation
+  bool CheckAccountIdx(int idx);
+  bool hasAccount();
+
+  //기능
+  void OpenAccount(const std::string& name);
+  void OpenAccount(Account::Info account_info_);
+  void Deposit(int accIdx, int money);
+  void Withdraw(int accIdx, int money);
+  void PrintAccounts(); 
+
+  //삭제할때 쓸거
+  bool FindAccountByAccId(int accId);
+  int CloseAccount(int accId);
 
  private:
   std::string name_;
-  Account account_;
+  std::vector<Account> accounts_;
 };
 }  // namespace BankSystem

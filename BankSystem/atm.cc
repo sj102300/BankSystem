@@ -21,28 +21,28 @@ int ATM::GetOptionCode() {
 }
 
 void ATM::MakeAccount(Customer& cus) {
-  if (cus.GetAccount().getInitStatus() == true) {
-    cout << "이미 계좌가 개설되어 있습니다!" << endl;
-    return;
-  }
 
-  Account::Info account_info;
-  cout << "계좌 ID를 입력해주세요: ";
-  cin >> account_info.accId_;
-  cout << "잔액을 입력해주세요: ";
-  cin >> account_info.balance_;
-  account_info.cusName_ = cus.GetCustomerName();
-
-  cus.SetAccount(account_info);
+  cus.OpenAccount(cus.GetCustomerName());
   cout << "계좌 개설이 완료되었습니다" << endl;
   return;
 }
 
 void ATM::Deposit(Customer& cus) {
-  if (cus.GetAccount().getInitStatus() == false) {
+  if (!cus.hasAccount()) {
     cout << "계좌가 없습니다!\n" << endl;
     return;
   }
+
+  cus.PrintAccounts();
+  int accIdx;
+  cout<<"입금하실 통장 idx를 입력해주세요: ";
+
+  while(true){
+    cin>>accIdx;
+    if(cus.CheckAccountIdx(accIdx-1))   break;
+    cout<<"다시 입력해주세요: ";
+  }
+
   int money = 0;
   cout << "입금할 금액을 입력하세요: ";
   while (true) {
@@ -50,37 +50,51 @@ void ATM::Deposit(Customer& cus) {
     if (money > 0) break;
     cout << "다시 입력해주세요: ";
   }
-  cout << "입금 후 잔액: " << cus.GetAccount().DepositBalance(money) << endl;
+  cus.Deposit(accIdx - 1, money);
+  cout << "입금 후 잔액: " << cus.GetAccount(accIdx-1).getBalance() << endl;
   return;
 }
 
 void ATM::Withdraw(Customer& cus) {
-  if (cus.GetAccount().getInitStatus() == false) {
+  if (!cus.hasAccount()) {
     cout << "계좌가 없습니다!\n" << endl;
     return;
   }
+  cus.PrintAccounts();
+  int idx;
+  cout<<"출금하실 통장 idx를 입력해주세요: ";
+
+  while(true){
+    cin>>idx;
+    if(cus.CheckAccountIdx(idx))   break;
+    cout<<"다시 입력해주세요: ";
+  }
+  
+  Account &targetacc = cus.GetAccount(idx-1);
   int money = 0;
-  int cusBalance = cus.GetAccount().getBalance();
+  int cusBalance = targetacc.getBalance();
   cout << "현재 잔액: " << cusBalance << endl;
   cout << "출금할 금액을 입력하세요: ";
   while (true) {
     cin >> money;
-    if (money < cusBalance) break;
+    if (money <= cusBalance) break;
     cout << "잔액이 부족합니다. 다시 입력해주세요: ";
   }
-  cout << "출금 후 잔액: " << cus.GetAccount().WithdrawBalance(money) << endl;
+  targetacc.WithdrawBalance(money);
+  cout << "출금 후 잔액: " << targetacc.getBalance() << endl;
   return;
 }
 
 void ATM::PrintAccountInfo(Customer& cus) {
-  Account acc = cus.GetAccount();
-  if (acc.getInitStatus() == false) {
+  if (!cus.hasAccount()) {
     cout << "계좌가 없습니다!\n" << endl;
     return;
   }
-  cout << "계좌 ID: " << acc.getId() << endl;
-  cout << "이름: " << cus.GetCustomerName() << endl;
-  cout << "잔액: " << acc.getBalance() << endl;
+
+  for(int i=0;i<cus.GetAccountSize();++i){
+    Account& acc = cus.GetAccount(i);
+    cout << i+1<< ". 계좌 ID: " << acc.getId() << " / 잔액: " << acc.getBalance() << endl;
+  }
   return;
 }
 
