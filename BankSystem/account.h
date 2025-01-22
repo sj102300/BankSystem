@@ -7,18 +7,21 @@ class Account {
  public:
   struct Info
   {
-    int accId_ = 0;
+    unsigned long long accId_ = 0;
     int balance_ = 0;
+    std::string account_name_;
     std::string cusName_;
+    bool init_status_;
   };
 
   Account();
+  Account(const std::string& name);
   Account(Info account_info);
   ~Account();
 
   // get set method
-  const int getId() const;
-  void SetId(const int accId);
+  const unsigned long long getId() const;
+  void SetId(const unsigned long long accId);
   const int getBalance() const;
   void SetBalane(const int balance);
   const std::string getName() const;

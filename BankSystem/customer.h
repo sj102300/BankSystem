@@ -11,21 +11,27 @@ class Customer {
   Customer(const std::string& name);
   ~Customer();
   
-  const int getAccountCnt() const;
-  const std::string GetCustomerName() const;
-
+  const int GetAccountSize() const;
+  const std::string& GetCustomerName() const;
   Account& GetAccount(int idx);
-  void OpenAccount(Account::Info account_info_);
-  int CloseAccount(int accId);
+
+  //validation
+  bool CheckAccountIdx(int idx);
   bool hasAccount();
-  void PrintAccounts();
-  int DepositByAccId(int accId, int money);
-  int WithdrawByAccId(int accId, int money);
+
+  //기능
+  void OpenAccount(const std::string& name);
+  void OpenAccount(Account::Info account_info_);
+  void Deposit(int accIdx, int money);
+  void Withdraw(int accIdx, int money);
+  void PrintAccounts(); 
+
+  //삭제할때 쓸거
   bool FindAccountByAccId(int accId);
+  int CloseAccount(int accId);
 
  private:
   std::string name_;
   std::vector<Account> accounts_;
-  int account_cnt_;
 };
 }  // namespace BankSystem

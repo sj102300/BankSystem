@@ -22,14 +22,7 @@ int ATM::GetOptionCode() {
 
 void ATM::MakeAccount(Customer& cus) {
 
-  Account::Info account_info;
-  cout << "계좌 ID를 입력해주세요: ";
-  cin >> account_info.accId_;
-  cout << "잔액을 입력해주세요: ";
-  cin >> account_info.balance_;
-  account_info.cusName_ = cus.GetCustomerName();
-
-  cus.OpenAccount(account_info);
+  cus.OpenAccount(cus.GetCustomerName());
   cout << "계좌 개설이 완료되었습니다" << endl;
   return;
 }
@@ -41,12 +34,12 @@ void ATM::Deposit(Customer& cus) {
   }
 
   cus.PrintAccounts();
-  int accId;
-  cout<<"입금하실 통장 ID를 입력해주세요: ";
+  int accIdx;
+  cout<<"입금하실 통장 idx를 입력해주세요: ";
 
   while(true){
-    cin>>accId;
-    if(cus.FindAccountByAccId(accId))   break;
+    cin>>accIdx;
+    if(cus.CheckAccountIdx(accIdx-1))   break;
     cout<<"다시 입력해주세요: ";
   }
 
@@ -57,12 +50,8 @@ void ATM::Deposit(Customer& cus) {
     if (money > 0) break;
     cout << "다시 입력해주세요: ";
   }
-  int result = cus.DepositByAccId(accId, money);
-  if (result == -1){
-    cout<<"입금에 실패했습니다."<<endl;
-    return;
-  }
-  cout << "입금 후 잔액: " << result << endl;
+  cus.Deposit(accIdx - 1, money);
+  cout << "입금 후 잔액: " << cus.GetAccount(accIdx-1).getBalance() << endl;
   return;
 }
 
@@ -73,25 +62,26 @@ void ATM::Withdraw(Customer& cus) {
   }
   cus.PrintAccounts();
   int idx;
-  cout<<"출금하실 통장 번호를 입력해주세요: ";
+  cout<<"출금하실 통장 idx를 입력해주세요: ";
 
   while(true){
     cin>>idx;
-    if(0 < idx && idx <= cus.getAccountCnt())   break;
+    if(cus.CheckAccountIdx(idx))   break;
     cout<<"다시 입력해주세요: ";
   }
   
-  Account &acctmp = cus.GetAccount(idx-1);
+  Account &targetacc = cus.GetAccount(idx-1);
   int money = 0;
-  int cusBalance = acctmp.getBalance();
+  int cusBalance = targetacc.getBalance();
   cout << "현재 잔액: " << cusBalance << endl;
   cout << "출금할 금액을 입력하세요: ";
   while (true) {
     cin >> money;
-    if (money < cusBalance) break;
+    if (money <= cusBalance) break;
     cout << "잔액이 부족합니다. 다시 입력해주세요: ";
   }
-  cout << "출금 후 잔액: " << acctmp.WithdrawBalance(money) << endl;
+  targetacc.WithdrawBalance(money);
+  cout << "출금 후 잔액: " << targetacc.getBalance() << endl;
   return;
 }
 
@@ -101,7 +91,7 @@ void ATM::PrintAccountInfo(Customer& cus) {
     return;
   }
 
-  for(int i=0;i<cus.getAccountCnt();++i){
+  for(int i=0;i<cus.GetAccountSize();++i){
     Account& acc = cus.GetAccount(i);
     cout << i+1<< ". 계좌 ID: " << acc.getId() << " / 잔액: " << acc.getBalance() << endl;
   }
