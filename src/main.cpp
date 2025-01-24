@@ -1,9 +1,13 @@
-#include "db/bank/bank_database.h"
+#include "BankSystem/account.h"
+#include "BankSystem/atm.h"
+#include "bank/bank_database.h"
+#include "bank/models/customer.h"
 
-int main(void)
-{
-    auto db = BankDatabase::getInstance();
-    db->initStorage();
+int main(void) {
+  BankSystem::Customer cus1("LEE");
 
-    return 0;
+  BankSystem::ATM atm;
+  atm.CustomerVisit(cus1);
+
+  return 0;
 }
