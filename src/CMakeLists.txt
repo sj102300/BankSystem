@@ -1,0 +1,82 @@
+cmake_minimum_required(VERSION 3.10)
+
+# Project name
+project(BankSystem)
+
+# C++ standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Include directories
+include_directories(${CMAKE_SOURCE_DIR}
+    ${CMAKE_SOURCE_DIR}/BankSystem
+    ${CMAKE_SOURCE_DIR}/db
+    ${CMAKE_SOURCE_DIR}/db/core
+    ${CMAKE_SOURCE_DIR}/db/bank
+    ${CMAKE_SOURCE_DIR}/db/bank/models)
+
+# Configure file for paths
+configure_file(
+    "${CMAKE_SOURCE_DIR}/config.h.in"
+    "${CMAKE_BINARY_DIR}/config.h"
+)
+include_directories(${CMAKE_BINARY_DIR})
+
+# SQLite ORM
+include(FetchContent)
+FetchContent_Declare(
+    sqlite_orm
+    GIT_REPOSITORY https://github.com/fnc12/sqlite_orm.git
+    GIT_TAG v1.9
+)
+FetchContent_MakeAvailable(sqlite_orm)
+
+# Source files for database
+set(DB_SOURCES
+    db/core/database.cc
+)
+
+# Header files for database
+set(DB_HEADERS
+    db/core/database.h
+    db/bank/bank_database.h
+    db/bank/models/customer.h
+    db/bank/models/account.h
+    db/bank/models/transaction_log.h
+)
+
+# Main application source files
+set(APP_SOURCES
+    main.cpp
+    BankSystem/account.cc
+    BankSystem/atm.cc
+    BankSystem/customer.cc
+)
+
+# Main application header files
+set(APP_HEADERS
+    BankSystem/account.h
+    BankSystem/atm.h
+    BankSystem/common_option.h
+    BankSystem/customer.h
+)
+
+# SQLite3 library
+find_package(SQLite3 REQUIRED)
+if (NOT SQLite3_FOUND)
+    message(FATAL_ERROR "SQLite3 library not found!")
+endif()
+
+# Add executable
+add_executable(${PROJECT_NAME} 
+    ${APP_SOURCES} 
+    ${APP_HEADERS}
+    ${DB_SOURCES}
+    ${DB_HEADERS}
+)
+
+# Link libraries
+target_link_libraries(${PROJECT_NAME} 
+    SQLite::SQLite3 
+    sqlite_orm
+)
