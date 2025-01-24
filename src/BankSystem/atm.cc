@@ -109,7 +109,7 @@ void ATM::Deposit(Customer& cus) {
 
   // 계좌 선택
   int accIdx;
-  cout << "입금하실 통장 번호를 입력해주세요: ";
+  cout << "입금하실 통장의 idx를 입력해주세요: ";
   while (true) {
     cin >> accIdx;
     if (accIdx > 0 && accIdx <= static_cast<int>(accounts.size())) break;
@@ -176,7 +176,7 @@ void ATM::Withdraw(Customer& cus) {
 
   // 계좌 선택
   int accIdx;
-  cout << "출금하실 통장 번호를 입력해주세요: ";
+  cout << "출금하실 통장의 idx를 입력해주세요: ";
   while (true) {
     cin >> accIdx;
     if (accIdx > 0 && accIdx <= static_cast<int>(accounts.size())) break;
