@@ -8,16 +8,17 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Include directories
-include_directories(${CMAKE_SOURCE_DIR}
-    ${CMAKE_SOURCE_DIR}/BankSystem
-    ${CMAKE_SOURCE_DIR}/db
-    ${CMAKE_SOURCE_DIR}/db/core
-    ${CMAKE_SOURCE_DIR}/db/bank
-    ${CMAKE_SOURCE_DIR}/db/bank/models)
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem
+    ${CMAKE_CURRENT_SOURCE_DIR}/db
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/core
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models)
 
 # Configure file for paths
 configure_file(
-    "${CMAKE_SOURCE_DIR}/config.h.in"
+    "${CMAKE_CURRENT_SOURCE_DIR}/config.h.in"
     "${CMAKE_BINARY_DIR}/config.h"
 )
 include_directories(${CMAKE_BINARY_DIR})
@@ -33,32 +34,32 @@ FetchContent_MakeAvailable(sqlite_orm)
 
 # Source files for database
 set(DB_SOURCES
-    db/core/database.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/core/database.cc
 )
 
 # Header files for database
 set(DB_HEADERS
-    db/core/database.h
-    db/bank/bank_database.h
-    db/bank/models/customer.h
-    db/bank/models/account.h
-    db/bank/models/transaction_log.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/core/database.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/bank_database.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/customer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/account.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/transaction_log.h
 )
 
 # Main application source files
 set(APP_SOURCES
-    main.cpp
-    BankSystem/account.cc
-    BankSystem/atm.cc
-    BankSystem/customer.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/account.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/atm.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/customer.cc
 )
 
 # Main application header files
 set(APP_HEADERS
-    BankSystem/account.h
-    BankSystem/atm.h
-    BankSystem/common_option.h
-    BankSystem/customer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/account.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/atm.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/common_option.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/customer.h
 )
 
 # SQLite3 library
