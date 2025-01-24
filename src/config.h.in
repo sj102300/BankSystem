@@ -1,0 +1,14 @@
+#pragma once
+
+#include <string>
+#include <filesystem>
+
+namespace config {
+    inline std::string getExecutablePath() {
+        return std::filesystem::current_path().string();
+    }
+
+    inline std::string getDatabasePath(const std::string& dbName) {
+        return (std::filesystem::path(getExecutablePath()) / dbName).string();
+    }
+}
