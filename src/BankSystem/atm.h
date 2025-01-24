@@ -14,6 +14,8 @@ class ATM {
   std::string getCurrentTimestamp();
   // 12자리 랜덤 계좌번호 생성
   std::string generateAccountNumber();
+  // 계좌 정보 출력 함수
+  void PrintAccountDetails(size_t idx, const ::Account& acc, bool showTransactions = true);
   std::random_device rd;
   std::mt19937_64 gen;
 

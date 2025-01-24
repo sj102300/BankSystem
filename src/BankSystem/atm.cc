@@ -104,8 +104,7 @@ void ATM::Deposit(Customer& cus) {
   // 계좌 목록 출력
   cout << "계좌 목록:" << endl;
   for (size_t i = 0; i < accounts.size(); ++i) {
-    cout << i + 1 << ". 계좌 ID: " << accounts[i].accId
-         << " / 잔액: " << accounts[i].balance << endl;
+    PrintAccountDetails(i + 1, accounts[i]);
   }
 
   // 계좌 선택
@@ -172,8 +171,7 @@ void ATM::Withdraw(Customer& cus) {
   // 계좌 목록 출력
   cout << "계좌 목록:" << endl;
   for (size_t i = 0; i < accounts.size(); ++i) {
-    cout << i + 1 << ". 계좌 ID: " << accounts[i].accId
-         << " / 잔액: " << accounts[i].balance << endl;
+    PrintAccountDetails(i + 1, accounts[i], false);
   }
 
   // 계좌 선택
@@ -218,6 +216,27 @@ void ATM::Withdraw(Customer& cus) {
   cout << "출금 후 잔액: " << selectedAccount.balance << endl;
 }
 
+void ATM::PrintAccountDetails(size_t idx, const ::Account& acc, bool showTransactions) {
+  auto& storage = db->getStorage();
+  cout << "idx: " << idx << " / 계좌 ID: " << acc.accId << " / 잔액: " << acc.balance << endl;
+
+  if (showTransactions) {
+    // 해당 계좌의 거래 내역 조회
+    auto logs = storage.get_all<::TransactionLog>(
+        where(c(&::TransactionLog::accountId) == acc.id),
+        order_by(&::TransactionLog::created_at).desc());
+
+    cout << "   거래 내역:" << endl;
+    for (const auto& log : logs) {
+      string type = log.transaction_type == 1 ? "입금" : "출금";
+      cout << "   - " << type << ": " << log.trade_amount
+           << " / 잔액: " << log.remaining_balance
+           << " / 시간: " << log.created_at << endl;
+    }
+  }
+  cout << endl;
+}
+
 void ATM::PrintAccountInfo(Customer& cus) {
   auto& storage = db->getStorage();
 
@@ -241,23 +260,7 @@ void ATM::PrintAccountInfo(Customer& cus) {
 
   // 계좌 정보 출력
   for (size_t i = 0; i < accounts.size(); ++i) {
-    const auto& acc = accounts[i];
-    cout << i + 1 << ". 계좌 ID: " << acc.accId << " / 잔액: " << acc.balance
-         << endl;
-
-    // 해당 계좌의 거래 내역 조회
-    auto logs = storage.get_all<::TransactionLog>(
-        where(c(&::TransactionLog::accountId) == acc.id),
-        order_by(&::TransactionLog::created_at).desc());
-
-    cout << "   거래 내역:" << endl;
-    for (const auto& log : logs) {
-      string type = log.transaction_type == 1 ? "입금" : "출금";
-      cout << "   - " << type << ": " << log.trade_amount
-           << " / 잔액: " << log.remaining_balance
-           << " / 시간: " << log.created_at << endl;
-    }
-    cout << endl;
+    PrintAccountDetails(i + 1, accounts[i]);
   }
 }
 
