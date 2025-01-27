@@ -7,6 +7,11 @@ project(BankSystem)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Debug mode 설정
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0")
+endif()
+
 # Include directories
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
@@ -14,7 +19,8 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/db
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models)
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models
+)
 
 # Configure file for paths
 configure_file(
