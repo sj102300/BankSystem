@@ -36,5 +36,9 @@ class BankDatabase : public Database {
     storage->sync_schema();
   }
 
+  void handleException(std::exception& e) {
+     std::cerr<<"DB 오류 발생"<<e.what()<<std::endl;
+  }
+
   Storage& getStorage() { return *storage; }
 };
