@@ -16,6 +16,15 @@ public:
         }
     }
 
+    static bool isExistByCusId(int cusId){
+        try{
+            return db->getStorage().count<Customer>(where(c(&Customer::cusId) == cusId));
+        }
+        catch(std::exception& e){
+            db->handleException(e);
+        }
+    }
+
     static std::string& GetCustomerName(int cusId){
         try{
             Customer targetCus = db->getStorage().get<Customer>(where(c(&Customer:: cusId) == cusId));
