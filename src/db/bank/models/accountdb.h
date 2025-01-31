@@ -30,3 +30,24 @@ struct Account {
         foreign_key(&Account::cusId).references(&Customer::cusId));
   }
 };
+
+
+class AccountDB : public BankDatabase{
+private:
+    static BankDatabase *db;
+    void MakeWithdrawLog(Account& targetAcc, unsigned int withdraw_money);
+    void MakeDepositLog(Account& targetAcc, unsigned int deposit_money);
+    bool isExistAccId(std::string& accId);
+
+public:
+    void CreateAccount(int cusId, int account_type);
+    std::vector<Account>& GetAccountsByCusId(int cusId);
+    void DepositBalanceByAccId(std::string accId, unsigned int deposit_amount);
+    void WithdrawBalanceByAccId(std::string accId, unsigned int withdraw_amount);
+    void UpdateAccount(Account& targetAcc);
+    void DeleteAccount(std::string accId);
+};
+
+BankDatabase* AccountDB::db = BankDatabase::getInstance();
+
+

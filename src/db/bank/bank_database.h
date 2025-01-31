@@ -5,9 +5,9 @@
 
 #include "config.h"
 #include "core/database.h"
-#include "models/account.h"
-#include "models/customer.h"
-#include "models/transaction_log.h"
+#include "models/accountdb.h"
+#include "models/customerdb.h"
+#include "models/transaction_logdb.h"
 
 using namespace sqlite_orm;
 

@@ -12,3 +12,17 @@ struct Customer {
             sqlite_orm::make_column("cus_name", &Customer::cus_name));
     }
 };
+
+class CustomerDB: public BankDatabase{
+private:
+    static BankDatabase* db;
+
+public:
+    void CreateCustomer(std::string& name);
+    bool isExistByCusId(int cusId);
+    std::string& GetCustomerName(int cusId);
+    void UpdateCustomer(int cusId, std::string& changing_name);
+    void DeleteCustomer(int cusId);
+};
+
+BankDatabase* CustomerDB::db = BankDatabase::getInstance();

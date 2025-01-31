@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <sqlite_orm/sqlite_orm.h>
-#include "customer.h"
-#include "account.h"
+#include "customerdb.h"
+#include "accountdb.h"
 
 using namespace sqlite_orm;
 
