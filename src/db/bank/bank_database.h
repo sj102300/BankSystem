@@ -1,6 +1,7 @@
 #pragma once
 
 #include <sqlite_orm/sqlite_orm.h>
+#include <iostream>
 
 #include "config.h"
 #include "core/database.h"
