@@ -23,9 +23,9 @@ struct Account {
         make_column("accId", &Account::accId, unique(),
                    check(length(&Account::accId) == 12)),
         make_column("cusId", &Account::cusId),
-        make_column("balance", &Account::balance),
+        make_column("balance", &Account::balance, default_value(0)),
         make_column("account_type", &Account::account_type),
-        make_column("status", &Account::status),
+        make_column("status", &Account::status, default_value(true)),
         make_column("created_at", &Account::created_at),
         foreign_key(&Account::cusId).references(&Customer::cusId));
   }
