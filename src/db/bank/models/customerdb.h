@@ -20,6 +20,7 @@ private:
 public:
     void CreateCustomer(std::string& name);
     bool isExistByCusId(int cusId);
+    const int GetCustomerId(std::string& name);
     std::string& GetCustomerName(int cusId);
     void UpdateCustomer(int cusId, std::string& changing_name);
     void DeleteCustomer(int cusId);

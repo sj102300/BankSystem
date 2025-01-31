@@ -9,6 +9,15 @@ void CustomerDB::CreateCustomer(std::string& name) {
     }
 }
 
+const int CustomerDB::GetCustomerId(std::string& name){
+    try{
+        Customer targetCus = db->getStorage().get(where(c(&Customer::cus_name)==name));
+        return targetCus.cusId;
+    } catch(std::exception& e){
+        db->handleExpection(e);
+    }
+}
+
 bool CustomerDB::isExistByCusId(int cusId) {
     try {
         return db->getStorage().count<Customer>(where(c(&Customer::cusId) == cusId));
