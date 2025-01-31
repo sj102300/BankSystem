@@ -68,22 +68,30 @@ std::vector<Account>& AccountDB::GetAccountsByCusId(int cusId) {
     }
 }
 
-void AccountDB::DepositBalanceByAccId(std::string accId, unsigned int deposit_amount) {
+void AccountDB::DepositBalanceByAccId(std::string accId, unsigned int deposit_amount, int cusId) {
     try {
         Account targetAcc = db->getStorage().get<Account>(where(c(&Account::accId) == accId));
+        if(targetAcc.cusId != cusId)
+            throw false;
         targetAcc.balance += deposit_amount;
         db->getStorage().update(targetAcc);
         MakeDepositLog(targetAcc, deposit_amount);
     } catch (std::system_error e) {
         // 계좌 못 찾음
+    } catch(bool expn){
+        //본인 계좌가 아님
     } catch (std::exception& e) {
         db->handleException(e);
     }
 }
 
-void AccountDB::WithdrawBalanceByAccId(std::string accId, unsigned int withdraw_amount) {
+void AccountDB::WithdrawBalanceByAccId(std::string accId, unsigned int withdraw_amount, int cusId) {
     try {
         Account targetAcc = db->getStorage().get<Account>(where(c(&Account::accId) == accId));
+        
+        if(targetAcc.cusId != cusId)
+            throw -1;
+
         if (targetAcc.balance < withdraw_amount) {
             throw false;
         }
@@ -92,6 +100,8 @@ void AccountDB::WithdrawBalanceByAccId(std::string accId, unsigned int withdraw_
         MakeWithdrawLog(targetAcc, withdraw_amount);
     } catch (std::system_error e) {
         // 계좌 못 찾음
+    } catch (int expn) {
+        // 자기 계좌가 아님
     } catch (bool expn) {
         // 잔액 부족
     } catch (std::exception& e) {
