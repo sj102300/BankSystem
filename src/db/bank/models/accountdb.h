@@ -37,9 +37,9 @@ private:
     static BankDatabase *db;
     void MakeWithdrawLog(Account& targetAcc, unsigned int withdraw_money);
     void MakeDepositLog(Account& targetAcc, unsigned int deposit_money);
-    bool isExistAccId(std::string& accId);
 
 public:
+    bool isExistAccId(std::string& accId);
     void CreateAccount(int cusId, int account_type);
     std::vector<Account>& GetAccountsByCusId(int cusId);
     void DepositBalanceByAccId(std::string accId, unsigned int deposit_amount);
