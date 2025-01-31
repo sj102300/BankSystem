@@ -59,7 +59,7 @@ void AccountDB::CreateAccount(int cusId, int account_type) {
     }
 }
 
-std::vector<Account>& AccountDB::GetAccountsByCusId(int cusId) {
+std::vector<Account> AccountDB::GetAccountsByCusId(int cusId) {
     try {
         std::vector<Account> ret = db->getStorage().get_all<Account>(cusId);
         return ret;

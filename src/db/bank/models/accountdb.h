@@ -41,7 +41,7 @@ private:
 public:
     bool isExistAccId(std::string& accId);
     void CreateAccount(int cusId, int account_type);
-    std::vector<Account>& GetAccountsByCusId(int cusId);
+    std::vector<Account> GetAccountsByCusId(int cusId);
     void DepositBalanceByAccId(std::string accId, unsigned int deposit_amount, int cusId);
     void WithdrawBalanceByAccId(std::string accId, unsigned int withdraw_amount, int cusId);
     void UpdateAccount(Account& targetAcc);
