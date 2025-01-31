@@ -11,8 +11,8 @@ struct Account {
   int id;                 // 자동 증가 primary key
   std::string accId;     // 12자리 계좌번호
   int cusId;
-  int balance;
-  int account_type;
+  unsigned int balance;
+  unsigned int account_type;
   bool status;
   std::string created_at;
 

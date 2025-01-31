@@ -11,9 +11,9 @@ struct TransactionLog {
     int accountId;  // Account 테이블의 id를 참조
     std::string accId;  // 12자리 계좌번호 (조회용)
     int cusId;
-    int transaction_type;
-    int trade_amount;
-    int remaining_balance;
+    unsigned int transaction_type;
+    unsigned int trade_amount;
+    unsigned int remaining_balance;
     std::string created_at;
 
     static auto getTableDefinition() {
