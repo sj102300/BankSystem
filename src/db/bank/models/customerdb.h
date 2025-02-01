@@ -17,7 +17,7 @@ struct Customer {
 
 class CustomerDB{
 private:
-    static BankDatabase* db;
+    BankDatabase* db;
 
 public:
     CustomerDB();

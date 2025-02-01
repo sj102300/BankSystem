@@ -1,13 +1,15 @@
-#include "BankSystem/account.h"
+// #include "BankSystem/account.h"
+#include "bank_database.h"
 #include "BankSystem/atm.h"
-#include "bank/bank_database.h"
-#include "bank/models/customer.h"
+
+// #include "bank/models/accountdb.h"
+// #include "bank/models/customerdb.h"
 
 int main(void) {
-  BankSystem::Customer cus1("LEE");
-
-  BankSystem::ATM atm;
-  atm.CustomerVisit(cus1);
+  
+  //ATM을 client로 나머지를 server로
+  BankSystem::ATM atm1;
+  atm1.Welcome();
 
   return 0;
 }

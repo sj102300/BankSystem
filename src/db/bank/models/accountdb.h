@@ -35,7 +35,7 @@ struct Account {
 
 class AccountDB{
 private:
-    static BankDatabase *db;
+    BankDatabase *db;
     void MakeWithdrawLog(Account& targetAcc, unsigned int withdraw_money);
     void MakeDepositLog(Account& targetAcc, unsigned int deposit_money);
 
