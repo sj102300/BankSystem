@@ -47,9 +47,9 @@ set(DB_SOURCES
 set(DB_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core/database.h
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/bank_database.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/customer.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/account.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/transaction_log.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/customerdb.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/accountdb.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/transaction_logdb.h
 )
 
 # Main application source files
