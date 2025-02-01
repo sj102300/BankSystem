@@ -15,6 +15,10 @@ namespace {
     }
 }
 
+AccountDB::AccountDB() {
+    db->initStorage();
+}
+
 void AccountDB::MakeWithdrawLog(Account& targetAcc, unsigned int withdraw_money) {
     try {
         std::string createdAt = TimeStamp::get_current_time();

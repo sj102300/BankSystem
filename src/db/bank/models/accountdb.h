@@ -33,13 +33,14 @@ struct Account {
 };
 
 
-class AccountDB : public BankDatabase{
+class AccountDB{
 private:
     static BankDatabase *db;
     void MakeWithdrawLog(Account& targetAcc, unsigned int withdraw_money);
     void MakeDepositLog(Account& targetAcc, unsigned int deposit_money);
 
 public:
+    AccountDB();
     bool isExistAccId(std::string& accId);
     void CreateAccount(int cusId, int account_type);
     std::vector<Account> GetAccountsByCusId(int cusId);

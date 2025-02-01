@@ -15,11 +15,12 @@ struct Customer {
     }
 };
 
-class CustomerDB: public BankDatabase{
+class CustomerDB{
 private:
     static BankDatabase* db;
 
 public:
+    CustomerDB();
     void CreateCustomer(std::string& name);
     bool isExistByCusId(int cusId);
     const int GetCustomerId(std::string& name);
