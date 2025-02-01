@@ -1,48 +1,50 @@
 #include "bank_database.h"
 #include <string>
 
-CustomerDB::CustomerDB() {
-    db->initStorage();
-}
+CustomerDB::CustomerDB() : db(BankDatabase::getInstance()) { db->initStorage(); }
 
-void CustomerDB::CreateCustomer(std::string& name) {
+int CustomerDB::CreateCustomer(std::string &name) {
     try {
-        db->getStorage().insert(Customer{0, name});
-    } catch (std::exception& e) {
+        return db->getStorage().insert(Customer{0, name});
+    } catch (std::exception &e) {
         db->handleException(e);
+        return -1;
     }
 }
 
-const int CustomerDB::GetCustomerId(std::string& name){
-    try{
-        Customer targetCus = db->getStorage().get<Customer>(where(c(&Customer::cus_name)==name));
-        return targetCus.cusId;
-    } catch(std::exception& e){
+const int CustomerDB::GetCustomerId(int customerId) {
+    try {
+        auto customer = db->getStorage().get<Customer>(customerId);
+        std::cout << "Customer ID: " << customer.cusId << ", Name: " << customer.cus_name << std::endl;
+        return customer.cusId;
+    } catch (std::exception &e) {
         db->handleException(e);
     }
 }
 
 bool CustomerDB::isExistByCusId(int cusId) {
     try {
-        return db->getStorage().count<Customer>(where(c(&Customer::cusId) == cusId));
-    } catch (std::exception& e) {
+        auto customer = db->getStorage().get<Customer>(cusId);
+        std::cout << "Customer ID: " << customer.cusId << ", Name: " << customer.cus_name << std::endl;
+        return customer.cusId;
+    } catch (std::exception &e) {
         db->handleException(e);
     }
 }
 
-std::string& CustomerDB::GetCustomerName(int cusId) {
+std::string &CustomerDB::GetCustomerName(int cusId) {
     try {
         Customer targetCus = db->getStorage().get<Customer>(where(c(&Customer::cusId) == cusId));
         return targetCus.cus_name;
-    } catch (std::exception& e) {
+    } catch (std::exception &e) {
         db->handleException(e);
     }
 }
 
-void CustomerDB::UpdateCustomer(int cusId, std::string& changing_name) {
+void CustomerDB::UpdateCustomer(int cusId, std::string &changing_name) {
     try {
         db->getStorage().update_all(set(c(&Customer::cus_name) = changing_name), where(c(&Customer::cusId) == cusId));
-    } catch (std::exception& e) {
+    } catch (std::exception &e) {
         db->handleException(e);
     }
 }

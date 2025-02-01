@@ -1,11 +1,11 @@
 #include <iostream>
-#include <string>
 #include <random>
+#include <string>
 #include <vector>
 
+#include "atm.h"
 #include "bank/bank_database.h"
 #include "common_option.h"
-#include "atm.h"
 
 namespace BankSystem {
 
@@ -28,22 +28,22 @@ void ATM::CustomerVisit(int cusId) {
     while (option != 5) {
         option = GetOptionCode();
         switch (option) {
-            case (Bank_Option::MAKE):
-                MakeAccount(cusId);
-                break;
-            case (Bank_Option::DEPOSIT):
-                Deposit(cusId);
-                break;
-            case (Bank_Option::WITHDRAW):
-                Withdraw(cusId);
-                break;
-            case (Bank_Option::INQUIRE):
-                PrintAccountInfo(cusId);
-                break;
-            case (Bank_Option::EXIT):
-                break;
-            default:
-                std::cout << "잘못된 입력입니다." << std::endl;
+        case (Bank_Option::MAKE):
+            MakeAccount(cusId);
+            break;
+        case (Bank_Option::DEPOSIT):
+            Deposit(cusId);
+            break;
+        case (Bank_Option::WITHDRAW):
+            Withdraw(cusId);
+            break;
+        case (Bank_Option::INQUIRE):
+            PrintAccountInfo(cusId);
+            break;
+        case (Bank_Option::EXIT):
+            break;
+        default:
+            std::cout << "잘못된 입력입니다." << std::endl;
         }
         std::cout << std::endl;
     }
@@ -52,7 +52,7 @@ void ATM::CustomerVisit(int cusId) {
 
 void ATM::MakeAccount(int cusId) {
     AccountDB accountdb;
-    accountdb.CreateAccount(cusId, 1);  // 일반 계좌는 1번...
+    accountdb.CreateAccount(cusId, 1); // 일반 계좌는 1번...
     std::cout << "계좌 개설 완료" << std::endl;
 }
 
@@ -127,6 +127,8 @@ void ATM::Welcome() {
         std::cout << "2. 회원 가입" << std::endl;
         std::cout << "0. 종료" << std::endl;
 
+        std::cin >> option;
+
         if (option == 1) {
             int cusId;
             std::cout << "회원 번호를 입력해주세요: " << std::endl;
@@ -141,10 +143,10 @@ void ATM::Welcome() {
             std::string name;
             std::cout << "이름을 입력해주세요: " << std::endl;
             std::cin >> name;
-            customerdb.CreateCustomer(name);
+            const auto cus_idx = customerdb.CreateCustomer(name);
             std::cout << "회원 가입이 완료되었습니다." << std::endl;
 
-            int cusId = customerdb.GetCustomerId(name);
+            int cusId = customerdb.GetCustomerId(cus_idx);
             std::cout << "회원 번호는 : " << cusId << std::endl;
             CustomerVisit(cusId);
             break;
@@ -157,4 +159,4 @@ void ATM::Welcome() {
     }
 }
 
-}  // namespace BankSystem
+} // namespace BankSystem
