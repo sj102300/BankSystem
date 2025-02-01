@@ -3,7 +3,8 @@
 
 #include <string>
 
-#include "customer.h"
+#include "bank_database.h"
+#include "customerdb.h"
 
 using namespace sqlite_orm;
 
@@ -48,6 +49,6 @@ public:
     void DeleteAccount(std::string accId);
 };
 
-BankDatabase* AccountDB::db = BankDatabase::getInstance();
+// BankDatabase* AccountDB::db = BankDatabase::getInstance();
 
 

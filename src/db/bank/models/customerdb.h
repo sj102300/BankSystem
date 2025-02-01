@@ -2,6 +2,8 @@
 #include <string>
 #include <sqlite_orm/sqlite_orm.h>
 
+#include "bank_database.h"
+
 struct Customer {
     int cusId;
     std::string cus_name;
@@ -26,4 +28,4 @@ public:
     void DeleteCustomer(int cusId);
 };
 
-BankDatabase* CustomerDB::db = BankDatabase::getInstance();
+// BankDatabase* CustomerDB::db = BankDatabase::getInstance();
