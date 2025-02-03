@@ -65,49 +65,35 @@ bool AccountDB::isExistAccId(std::string &accId)
     }
 }
 
-void AccountDB::CreateAccount(int cusId, int account_type)
+Account AccountDB::CreateAccount(int cusId, int account_type)
 {
     BankDatabase *db = BankDatabase::getInstance();
     try
     {
+        // db에 없는 새로운 계좌번호 생성
         std::string accId;
-        accId = std::to_string(GenerateRandomNumber());
-
-        // accId가 이미 존재하는지 확인
-        if (!isExistAccId(accId))
+        do
         {
-            // 현재 시간을 string으로 변환
-            std::string createdAt = TimeStamp::get_current_time();
+            accId = std::to_string(GenerateRandomNumber());
+        } while (!isExistAccId(accId));
 
-            // Account 객체 생성 및 데이터베이스에 삽입
-            int insertedId = db->getStorage().insert(Account{
-                0,            // id (자동 생성)
-                accId,        // 계좌 ID
-                cusId,        // 고객 ID
-                0,            // 초기 잔액
-                account_type, // 계좌 유형
-                true,         // 활성화 상태
-                createdAt     // 생성 시간
-            });
+        // 현재 시간을 string으로 변환
+        std::string createdAt = TimeStamp::get_current_time();
 
-            // 삽입된 계좌 정보를 데이터베이스에서 조회
-            auto insertedAccount = db->getStorage().get<Account>(insertedId);
+        // Account 객체 생성 및 데이터베이스에 삽입
+        int insertedId = db->getStorage().insert(Account{
+            0,            // id (자동 생성)
+            accId,        // 계좌 ID
+            cusId,        // 고객 ID
+            0,            // 초기 잔액
+            account_type, // 계좌 유형
+            true,         // 활성화 상태
+            createdAt     // 생성 시간
+        });
 
-            // 조회된 계좌 정보 출력
-            std::cout << "계좌가 성공적으로 생성되었습니다. 계좌 정보:" << std::endl;
-            std::cout << "ID: " << insertedAccount.id << std::endl;
-            std::cout << "계좌 번호: " << insertedAccount.accId << std::endl;
-            std::cout << "고객 ID: " << insertedAccount.cusId << std::endl;
-            std::cout << "잔액: " << insertedAccount.balance << std::endl;
-            std::cout << "계좌 유형: " << insertedAccount.account_type << std::endl;
-            std::cout << "활성화 상태: "
-                      << (insertedAccount.status ? "활성" : "비활성") << std::endl;
-            std::cout << "생성 시간: " << insertedAccount.created_at << std::endl;
-        }
-        else
-        {
-            std::cout << "이미 존재하는 계좌 번호입니다." << std::endl;
-        }
+        // 삽입된 계좌 정보를 데이터베이스에서 조회
+        Account insertedAccount = db->getStorage().get<Account>(insertedId);
+        return insertedAccount;
     }
     catch (std::exception &e)
     {
@@ -126,9 +112,8 @@ std::vector<Account> AccountDB::GetAccountsByCusId(int cusId)
 
         // 조회 결과가 비어있는 경우 빈 벡터 반환
         if (ret.empty())
-        {
-            return {}; // 빈 벡터 반환
-        }
+            return {};
+        
         return ret;
     }
     catch (std::exception &e)
@@ -137,7 +122,7 @@ std::vector<Account> AccountDB::GetAccountsByCusId(int cusId)
     }
 }
 
-void AccountDB::DepositBalanceByAccId(std::string accId,
+bool AccountDB::DepositBalanceByAccId(std::string accId,
                                       unsigned int deposit_amount, int cusId)
 {
     BankDatabase *db = BankDatabase::getInstance();
@@ -146,21 +131,14 @@ void AccountDB::DepositBalanceByAccId(std::string accId,
         auto accounts =
             db->getStorage().get_all<Account>(where(c(&Account::accId) == accId));
 
-        // 조회된 계좌 정보 출력
-        if (!accounts.empty())
-        {
-            accounts[0].balance += deposit_amount;
-            db->getStorage().update(accounts[0]);
-            MakeDepositLog(accounts[0], deposit_amount);
-        }
-    }
-    catch (std::system_error e)
-    {
-        // 계좌 못 찾음
-    }
-    catch (bool expn)
-    {
-        // 본인 계좌가 아님
+        //조회할 계좌가 없음. 입금 실패
+        if (accounts.empty())
+            return false;
+
+        accounts[0].balance += deposit_amount;
+        db->getStorage().update(accounts[0]);
+        MakeDepositLog(accounts[0], deposit_amount);
+        return true;
     }
     catch (std::exception &e)
     {
@@ -168,38 +146,26 @@ void AccountDB::DepositBalanceByAccId(std::string accId,
     }
 }
 
-void AccountDB::WithdrawBalanceByAccId(std::string accId,
+bool AccountDB::WithdrawBalanceByAccId(std::string accId,
                                        unsigned int withdraw_amount,
                                        int cusId)
 {
     BankDatabase *db = BankDatabase::getInstance();
     try
     {
-        Account targetAcc =
-            db->getStorage().get<Account>(where(c(&Account::accId) == accId));
+        auto targetAcc =
+            db->getStorage().get_pointer<Account>(where(c(&Account::accId) == accId));
 
-        if (targetAcc.cusId != cusId)
-            throw -1;
+        if(targetAcc == nullptr)
+            return false; //계좌 조회 실패. 출금 실패.
 
-        if (targetAcc.balance < withdraw_amount)
-        {
-            throw false;
-        }
-        targetAcc.balance -= withdraw_amount;
-        db->getStorage().update(targetAcc);
-        MakeWithdrawLog(targetAcc, withdraw_amount);
-    }
-    catch (std::system_error e)
-    {
-        // 계좌 못 찾음
-    }
-    catch (int expn)
-    {
-        // 자기 계좌가 아님
-    }
-    catch (bool expn)
-    {
-        // 잔액 부족
+        if (targetAcc->balance < withdraw_amount)
+            throw false;  //잔액 부족. 출금 실패
+        
+        targetAcc->balance -= withdraw_amount;
+        db->getStorage().update(*targetAcc);
+        MakeWithdrawLog(*targetAcc, withdraw_amount);
+        return true;
     }
     catch (std::exception &e)
     {
@@ -222,10 +188,17 @@ void AccountDB::UpdateAccount(Account &targetAcc)
 
 void AccountDB::DeleteAccount(std::string accId)
 {
+    //transaction 외래키와의 종속성 때문에
+    //그냥 remove안하고 계좌 status를 false로
     BankDatabase *db = BankDatabase::getInstance();
     try
     {
-        db->getStorage().remove<Account>(accId);
+        auto targetAcc = db->getStorage().get_pointer<Account>(where(c(&Account::accId) == accId));
+        if (targetAcc == nullptr)
+            return; //삭제할 계좌 없음. 아무일도 안일어남.
+        
+        targetAcc->status = false;
+        db->getStorage().update(*targetAcc);
     }
     catch (std::exception &e)
     {

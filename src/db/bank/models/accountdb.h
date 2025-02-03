@@ -45,11 +45,11 @@ private:
 public:
     AccountDB();
     static bool isExistAccId(std::string &accId);
-    static void CreateAccount(int cusId, int account_type);
+    static Account CreateAccount(int cusId, int account_type);
     static std::vector<Account> GetAccountsByCusId(int cusId);
-    static void DepositBalanceByAccId(std::string accId,
+    static bool DepositBalanceByAccId(std::string accId,
                                       unsigned int deposit_amount, int cusId);
-    static void WithdrawBalanceByAccId(std::string accId,
+    static bool WithdrawBalanceByAccId(std::string accId,
                                        unsigned int withdraw_amount, int cusId);
     static void UpdateAccount(Account &targetAcc);
     static void DeleteAccount(std::string accId);
