@@ -2,8 +2,6 @@
 #include <sqlite_orm/sqlite_orm.h>
 
 #include <string>
-
-#include "bank_database.h"
 #include "customerdb.h"
 
 using namespace sqlite_orm;
@@ -45,11 +43,11 @@ private:
 public:
     AccountDB();
     static bool isExistAccId(std::string &accId);
-    static Account CreateAccount(int cusId, int account_type);
+    static Account CreateAccount(int cusId, unsigned int account_type);
     static std::vector<Account> GetAccountsByCusId(int cusId);
-    static bool DepositBalanceByAccId(std::string accId,
+    static bool DepositBalanceByAccId(std::string& accId,
                                       unsigned int deposit_amount, int cusId);
-    static bool WithdrawBalanceByAccId(std::string accId,
+    static bool WithdrawBalanceByAccId(std::string& accId,
                                        unsigned int withdraw_amount, int cusId);
     static void UpdateAccount(Account &targetAcc);
     static void DeleteAccount(std::string accId);

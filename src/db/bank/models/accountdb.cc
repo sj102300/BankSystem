@@ -65,7 +65,7 @@ bool AccountDB::isExistAccId(std::string &accId)
     }
 }
 
-Account AccountDB::CreateAccount(int cusId, int account_type)
+Account AccountDB::CreateAccount(int cusId, unsigned int account_type)
 {
     BankDatabase *db = BankDatabase::getInstance();
     try
@@ -75,7 +75,7 @@ Account AccountDB::CreateAccount(int cusId, int account_type)
         do
         {
             accId = std::to_string(GenerateRandomNumber());
-        } while (!isExistAccId(accId));
+        } while (isExistAccId(accId));
 
         // 현재 시간을 string으로 변환
         std::string createdAt = TimeStamp::get_current_time();
@@ -122,7 +122,7 @@ std::vector<Account> AccountDB::GetAccountsByCusId(int cusId)
     }
 }
 
-bool AccountDB::DepositBalanceByAccId(std::string accId,
+bool AccountDB::DepositBalanceByAccId(std::string& accId,
                                       unsigned int deposit_amount, int cusId)
 {
     BankDatabase *db = BankDatabase::getInstance();
@@ -146,7 +146,7 @@ bool AccountDB::DepositBalanceByAccId(std::string accId,
     }
 }
 
-bool AccountDB::WithdrawBalanceByAccId(std::string accId,
+bool AccountDB::WithdrawBalanceByAccId(std::string& accId,
                                        unsigned int withdraw_amount,
                                        int cusId)
 {
@@ -154,17 +154,17 @@ bool AccountDB::WithdrawBalanceByAccId(std::string accId,
     try
     {
         auto targetAcc =
-            db->getStorage().get_pointer<Account>(where(c(&Account::accId) == accId));
+            db->getStorage().get_all<Account>(where(c(&Account::accId) == accId));
 
-        if(targetAcc == nullptr)
+        if(targetAcc.empty())
             return false; //계좌 조회 실패. 출금 실패.
 
-        if (targetAcc->balance < withdraw_amount)
-            throw false;  //잔액 부족. 출금 실패
+        if (targetAcc[0].balance < withdraw_amount)
+            return false;  //잔액 부족. 출금 실패
         
-        targetAcc->balance -= withdraw_amount;
-        db->getStorage().update(*targetAcc);
-        MakeWithdrawLog(*targetAcc, withdraw_amount);
+        targetAcc[0].balance -= withdraw_amount;
+        db->getStorage().update(targetAcc[0]);
+        MakeWithdrawLog(targetAcc[0], withdraw_amount);
         return true;
     }
     catch (std::exception &e)
@@ -193,12 +193,13 @@ void AccountDB::DeleteAccount(std::string accId)
     BankDatabase *db = BankDatabase::getInstance();
     try
     {
-        auto targetAcc = db->getStorage().get_pointer<Account>(where(c(&Account::accId) == accId));
-        if (targetAcc == nullptr)
-            return; //삭제할 계좌 없음. 아무일도 안일어남.
+        auto targetAcc = db->getStorage().get_all<Account>(where(c(&Account::accId) == accId));
         
-        targetAcc->status = false;
-        db->getStorage().update(*targetAcc);
+        if(targetAcc.empty())
+            return; //삭제할 계좌 없음.
+
+        targetAcc[0].status = false;
+        db->getStorage().update(targetAcc[0]);
     }
     catch (std::exception &e)
     {

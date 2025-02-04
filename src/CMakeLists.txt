@@ -58,7 +58,7 @@ set(DB_HEADERS
 # Main application source files (excluding unnecessary files)
 set(APP_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/atm2.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/atm.cc
 )
 
 # Main application header files

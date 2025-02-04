@@ -1,9 +1,6 @@
 #pragma once
 #include <sqlite_orm/sqlite_orm.h>
-
 #include <string>
-
-#include "bank_database.h"
 
 class BankDatabase;
 
@@ -26,10 +23,10 @@ class CustomerDB
 {
 public:
     CustomerDB();
-    static int CreateCustomer(std::string &name);
+    static Customer CreateCustomer(std::string &name);
     static bool isExistByCusId(int cusId);
-    static const int GetCustomerId(int name);
-    static std::string &GetCustomerName(int cusId);
+    static const Customer GetCustomer(int cusId);
+    static const Customer GetCustomer(std::string& name);
     static void UpdateCustomer(int cusId, std::string &changing_name);
     static void DeleteCustomer(int cusId);
 };

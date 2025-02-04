@@ -1,23 +1,21 @@
 #pragma once
 
-#include <iostream>
-#include <string>
-#include <random>
-
-// #include "bank/bank_database.h"
-// #include "customer.h"
-
 namespace BankSystem
 {
     class ATM
     {
     public:
-        int GetOptionCode();
-        void CustomerVisit(int cusId);
-        void MakeAccount(int cusId);
-        void Deposit(int cusId);
-        void Withdraw(int cusId);
-        void PrintAccountInfo(int cusId);
-        void Welcome();
+        static void Welcome();
+        static const int Exit();
+        static const int Login();
+        static const int Signup();
+
+        static void CustomerVisit(int cusId);
+        static int GetOptionCode();
+        static bool MakeAccount(int cusId);
+        static bool Deposit(int cusId);
+        static bool Withdraw(int cusId);
+        static bool PrintAccountInfo(int cusId);
+        static bool CustomerLeave(int cusId);
     };
 } // namespace BankSystem
