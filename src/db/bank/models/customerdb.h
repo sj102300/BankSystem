@@ -1,6 +1,7 @@
 #pragma once
 #include <sqlite_orm/sqlite_orm.h>
 #include <string>
+#include <tuple>
 
 class BankDatabase;
 
@@ -25,8 +26,8 @@ public:
     CustomerDB();
     static Customer CreateCustomer(std::string &name);
     static bool isExistByCusId(int cusId);
-    static const Customer GetCustomer(int cusId);
-    static const Customer GetCustomer(std::string& name);
+    static std::tuple<bool, const Customer> GetCustomer(int cusId);
+    static std::tuple<bool, const Customer> GetCustomer(std::string& name);
     static void UpdateCustomer(int cusId, std::string &changing_name);
     static void DeleteCustomer(int cusId);
 };

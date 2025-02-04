@@ -1,4 +1,5 @@
 #include <string>
+#include <tuple>
 
 #include "bank_database.h"
 
@@ -21,22 +22,22 @@ bool CustomerDB::isExistByCusId(int cusId)
     return true;
 }
 
-const Customer CustomerDB::GetCustomer(int cusId)
+std::tuple<bool, const Customer> CustomerDB::GetCustomer(int cusId)
 {
     BankDatabase *db = BankDatabase::getInstance();
     auto customer = db->getStorage().get_all<Customer>(where(c(&Customer::cusId) == cusId));
     if (customer.empty())
-        return {0, "\0"}; // 고객 조회 실패.
-    return customer[0];
+        return {false, {0, "\0"}}; // 고객 조회 실패.
+    return {true, customer[0]};
 }
 
-const Customer CustomerDB::GetCustomer(std::string &name)
+std::tuple<bool, const Customer> CustomerDB::GetCustomer(std::string &name)
 {
     BankDatabase *db = BankDatabase::getInstance();
     auto customer = db->getStorage().get_all<Customer>(where(c(&Customer::cus_name) == name));
     if (customer.empty())
-        return {0, "\0"}; // 고객 조회 실패.
-    return customer[0];
+        return {false, {0, "\0"}}; // 고객 조회 실패.
+    return {true, customer[0]};
 }
 
 void CustomerDB::UpdateCustomer(int cusId, std::string &changing_name)
