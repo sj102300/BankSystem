@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <sqlite_orm/sqlite_orm.h>
-#include "customer.h"
-#include "account.h"
+#include "customerdb.h"
+#include "accountdb.h"
 
 using namespace sqlite_orm;
 
@@ -11,9 +11,9 @@ struct TransactionLog {
     int accountId;  // Account 테이블의 id를 참조
     std::string accId;  // 12자리 계좌번호 (조회용)
     int cusId;
-    int transaction_type;
-    int trade_amount;
-    int remaining_balance;
+    unsigned int transaction_type;  //입금시 1, 출금시 2
+    unsigned int trade_amount;
+    unsigned int remaining_balance;
     std::string created_at;
 
     static auto getTableDefinition() {

@@ -1,32 +1,21 @@
 #pragma once
 
-#include <memory>
-#include <string>
-#include <random>
+namespace BankSystem
+{
+    class ATM
+    {
+    public:
+        static void Welcome();
+        static const int Exit();
+        static const int Login();
+        static const int Signup();
 
-#include "bank/bank_database.h"
-#include "customer.h"
-
-namespace BankSystem {
-class ATM {
- private:
-  BankDatabase* db;
-  std::string getCurrentTimestamp();
-  // 12자리 랜덤 계좌번호 생성
-  std::string generateAccountNumber();
-  // 계좌 정보 출력 함수
-  void PrintAccountDetails(size_t idx, const ::Account& acc, bool showTransactions = true);
-  std::random_device rd;
-  std::mt19937_64 gen;
-
- public:
-  ATM();
-  ~ATM();
-  int GetOptionCode();
-  void MakeAccount(Customer& cus);
-  void Deposit(Customer& cus);
-  void Withdraw(Customer& cus);
-  void PrintAccountInfo(Customer& cus);
-  void CustomerVisit(Customer& cus);
-};
-}  // namespace BankSystem
+        static void CustomerVisit(int cusId);
+        static int GetOptionCode();
+        static bool MakeAccount(int cusId);
+        static bool Deposit(int cusId);
+        static bool Withdraw(int cusId);
+        static bool PrintAccountInfo(int cusId);
+        static bool CustomerLeave(int cusId);
+    };
+} // namespace BankSystem

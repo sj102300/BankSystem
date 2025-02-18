@@ -20,6 +20,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/utils
 )
 
 # Configure file for paths
@@ -41,31 +42,29 @@ FetchContent_MakeAvailable(sqlite_orm)
 # Source files for database
 set(DB_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core/database.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/accountdb.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/customerdb.cc
 )
 
 # Header files for database
 set(DB_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core/database.h
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/bank_database.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/customer.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/account.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/transaction_log.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/accountdb.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/customerdb.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/transaction_logdb.h
 )
 
-# Main application source files
+# Main application source files (excluding unnecessary files)
 set(APP_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/account.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/atm.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/customer.cc
 )
 
 # Main application header files
 set(APP_HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/account.h
     ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/atm.h
     ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/common_option.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/customer.h
 )
 
 # SQLite3 library

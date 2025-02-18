@@ -1,13 +1,14 @@
-#include "BankSystem/account.h"
 #include "BankSystem/atm.h"
-#include "bank/bank_database.h"
-#include "bank/models/customer.h"
+#include "bank_database.h"
 
-int main(void) {
-  BankSystem::Customer cus1("LEE");
+int main(void)
+{
+    //db연동
+    BankDatabase *db = BankDatabase::getInstance();
+    db->initStorage();
 
-  BankSystem::ATM atm;
-  atm.CustomerVisit(cus1);
+    //client시작
+    BankSystem::ATM::Welcome();
 
-  return 0;
+    return 0;
 }
