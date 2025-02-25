@@ -1,8 +1,6 @@
 
-#include <string>
-#include <random>
-
 #include "account_namespace.h"
+#include <random>
 
 class Account{
 protected:
@@ -22,5 +20,5 @@ private:
     account::AccountInfo info_;
 
 public:
-    virtual void close_account() = 0;
+    virtual void closeAccount() = 0;
 };

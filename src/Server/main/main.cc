@@ -7,8 +7,5 @@ int main(void)
     BankDatabase *db = BankDatabase::getInstance();
     db->initStorage();
 
-    //client시작
-    BankSystem::ATM::Welcome();
-
     return 0;
 }

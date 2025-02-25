@@ -5,12 +5,21 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/3rd_party/sqlite_orm/include/**",
-                "${workspaceFolder}/src/BankSystem/**",
-                "${workspaceFolder}/src/db/**",
-                "${workspaceFolder}/src/db/bank/**",
-                "${workspaceFolder}/src/db/bank/utils/**",
-                "${workspaceFolder}/src/db/bank/models/**",
-                "${workspaceFolder}/src/db/core/**"
+                "${workspaceFolder}/src/Client/**",
+                "${workspaceFolder}/src/Client/BankSystem/**",
+                "${workspaceFolder}/src/Server/**",
+                "${workspaceFolder}/src/Server/main/test/**",
+                "${workspaceFolder}/src/Server/main/**",
+                "${workspaceFolder}/src/Server/models/**",
+                "${workspaceFolder}/src/Server/db/**",
+                "${workspaceFolder}/src/Server/db/core/**",
+                "${workspaceFolder}/src/Server/db/bank/**",
+                "${workspaceFolder}/src/Server/db/bank/utils/**",
+                "${workspaceFolder}/src/Server/db/bank/CRUD/**",
+                "${workspaceFolder}/src/Server/db/bank/Implementation/**",
+
+                "${workspaceFolder}/src/Server/db/bank/models/**",  //나중에 지울거
+
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

@@ -6,18 +6,19 @@
 
 #include "config.h"
 #include "core/database.h"
-#include "models/accountdb.h"
-#include "models/customerdb.h"
-#include "models/transaction_logdb.h"
+#include "tables.h"
 
 using namespace sqlite_orm;
 
 class BankDatabase : public Database
 {
 private:
-    using Storage = decltype(make_storage("", Customer::getTableDefinition(),
-                                          Account::getTableDefinition(),
-                                          TransactionLog::getTableDefinition()));
+    using Storage = decltype(make_storage("", db_table::Customer::getTableDefinition(),
+                                        db_table::Account::getTableDefinition(),
+                                        db_table::TransactionLog::getTableDefinition(),
+                                        db_table::FixedDeposit::getTableDefinition(),
+                                        db_table::Savings::getTableDefinition()
+                                        ));
 
     std::unique_ptr<Storage> storage;
 
@@ -37,8 +38,11 @@ public:
     void initStorage() override
     {
         storage = std::make_unique<Storage>(make_storage(
-            db_path, Customer::getTableDefinition(), Account::getTableDefinition(),
-            TransactionLog::getTableDefinition()));
+            db_path, db_table::Customer::getTableDefinition(),
+            db_table::Account::getTableDefinition(),
+            db_table::TransactionLog::getTableDefinition(),
+            db_table::FixedDeposit::getTableDefinition(),
+            db_table::Savings::getTableDefinition()));
         storage->sync_schema();
     }
 

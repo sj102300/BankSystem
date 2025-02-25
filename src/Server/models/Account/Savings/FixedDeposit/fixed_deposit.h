@@ -1,6 +1,5 @@
 
 #include "savings.h"
-#include <string>
 
 class FixedDeposit: public Savings{
 
@@ -37,7 +36,7 @@ namespace{
 //구현 클래스
 class FixedDepositImpl: public FixedDeposit{
 public:
-    void close_account() override;
+    void closeAccount() override;
     void deposit() override;
     void calcInterestRate() override;
     bool checkMaturityDate() override;

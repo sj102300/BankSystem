@@ -12,7 +12,7 @@ class NormalSavingsImpl : public NormalSavings{
 public:
     NormalSavingsImpl(account::AccountInfo ainfo, account::SavingsInfo sinfo): NormalSavings(ainfo, sinfo) {}
 
-    void close_account() override;
+    void closeAccount() override;
     void deposit() override;
     void calcInterestRate() override;
     void withdraw() override;

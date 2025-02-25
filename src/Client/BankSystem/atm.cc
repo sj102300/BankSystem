@@ -6,7 +6,7 @@
 #include <functional>
 
 #include "atm.h"
-#include "bank/bank_database.h"
+#include "db/bank/bank_database.h"
 #include "common_option.h"
 
 using namespace BankSystem;
