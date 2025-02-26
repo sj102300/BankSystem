@@ -24,18 +24,18 @@ void AccountDB::MakeWithdrawLog(Account &targetAcc,
 {
     BankDatabase *db = BankDatabase::getInstance();
     std::string createdAt = TimeStamp::get_current_time();
-    db->getStorage().insert<TransactionLog>(
-        TransactionLog{0, targetAcc.id, targetAcc.accId, targetAcc.cusId, 2,
-                       withdraw_money, targetAcc.balance, createdAt});
+    // db->getStorage().insert<TransactionLog>(
+    //     TransactionLog{0, targetAcc.id, targetAcc.accId, targetAcc.cusId, 2,
+    //                    withdraw_money, targetAcc.balance, createdAt});
 }
 
 void AccountDB::MakeDepositLog(Account &targetAcc, unsigned int deposit_money)
 {
     BankDatabase *db = BankDatabase::getInstance();
     std::string createdAt = TimeStamp::get_current_time();
-    db->getStorage().insert<TransactionLog>(
-        TransactionLog{0, targetAcc.id, targetAcc.accId, targetAcc.cusId, 1,
-                       deposit_money, targetAcc.balance, createdAt});
+    // db->getStorage().insert<TransactionLog>(
+    //     TransactionLog{0, targetAcc.id, targetAcc.accId, targetAcc.cusId, 1,
+    //                    deposit_money, targetAcc.balance, createdAt});
 }
 
 bool AccountDB::isExistAccId(std::string &accId)

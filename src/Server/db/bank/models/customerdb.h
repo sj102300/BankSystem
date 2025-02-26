@@ -4,19 +4,25 @@
 #include <tuple>
 
 class BankDatabase;
+using namespace sqlite_orm;
 
 struct Customer
 {
-    int cusId;
-    std::string cus_name;
+    unsigned int cusId;
+    std::string userId;
+    std::string password;
+    std::string name;
+    std::string createdAt;
 
     static auto getTableDefinition()
     {
-        return sqlite_orm::make_table(
+        return make_table(
             "Customer",
-            sqlite_orm::make_column("cusId", &Customer::cusId,
-                                    sqlite_orm::primary_key()),
-            sqlite_orm::make_column("cus_name", &Customer::cus_name));
+            make_column("cusId", &Customer::cusId, primary_key().autoincrement()),
+            make_column("userId", &Customer::userId, unique()),
+            make_column("password", &Customer::password),
+            make_column("name", &Customer::name),
+            make_column("createdAt", &Customer::createdAt));
     }
 };
 
@@ -27,7 +33,7 @@ public:
     static Customer CreateCustomer(std::string &name);
     static bool isExistByCusId(int cusId);
     static std::tuple<bool, const Customer> GetCustomer(int cusId);
-    static std::tuple<bool, const Customer> GetCustomer(std::string& name);
+    static std::tuple<bool, const Customer> GetCustomer(std::string &name);
     static void UpdateCustomer(int cusId, std::string &changing_name);
     static void DeleteCustomer(int cusId);
 };

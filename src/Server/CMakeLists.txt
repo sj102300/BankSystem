@@ -15,7 +15,7 @@ endif()
 # Include directories
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem
+    # ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem
     ${CMAKE_CURRENT_SOURCE_DIR}/db
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank
@@ -53,12 +53,14 @@ set(DB_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/accountdb.h
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/customerdb.h
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/transaction_logdb.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/fixedDeposit.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/savings.h
 )
 
 # Main application source files (excluding unnecessary files)
 set(APP_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/atm.cc
+    # ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/atm.cc
 )
 
 # Main application header files
@@ -76,7 +78,7 @@ endif()
 # Add executable
 add_executable(${PROJECT_NAME} 
     ${APP_SOURCES} 
-    ${APP_HEADERS}
+    # ${APP_HEADERS}
     ${DB_SOURCES}
     ${DB_HEADERS}
 )
