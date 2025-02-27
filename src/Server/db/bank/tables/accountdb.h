@@ -11,7 +11,7 @@ class BankDatabase;
 
 struct Account
 {
-    int accId;          // 자동 증가 primary key
+    unsigned int accId;          // 자동 증가 primary key
     std::string accNum; // 12자리 계좌번호
     unsigned int cusId;
     unsigned int account_type;

@@ -26,8 +26,8 @@ struct Savings
 class SavingsDB{
 public:
 	SavingsDB();
-	static Savings CreateSavings(unsigned int accId, long long balance, double interestRate);
+	static Savings CreateSavings(unsigned int accId, double interestRate);
 	static std::tuple<bool, Savings> GetSavings(unsigned int accId);
-	static void UpdateSavings();
+	static void UpdateSavings(Savings& savings);
 	static void DeleteSavings();
 };

@@ -4,12 +4,12 @@
 
 SavingsDB::SavingsDB() {}
 
-Savings SavingsDB::CreateSavings(unsigned int accId, long long balance, double interestRate){
+Savings SavingsDB::CreateSavings(unsigned int accId, double interestRate){
     BankDatabase *db = BankDatabase::getInstance();
     
     int insertedId = db->getStorage().insert(Savings{
         accId,
-        balance,
+        0,
         interestRate
     });
 
@@ -28,8 +28,9 @@ std::tuple<bool, Savings> SavingsDB::GetSavings(unsigned int accId){
     return {true, ret.at(0)};
 }
 
-void SavingsDB::UpdateSavings(){
-
+void SavingsDB::UpdateSavings(Savings& savings){
+    BankDatabase *db = BankDatabase::getInstance();
+    db->getStorage().update(savings);
 }
 
 void SavingsDB::DeleteSavings(){

@@ -10,8 +10,8 @@ namespace account{
         const unsigned int accId_;
         const std::string accNum_; //계좌번호
         const unsigned int cusId_; 
-        bool status_;
         const unsigned int accountType_;
+        bool status_;
         const std::string createdAt_;
     } AccountInfo;
 
@@ -24,4 +24,15 @@ namespace account{
         unsigned long long monthlyPayment_;
         std::string maturityDate_;
     } FixedDepositInfo;
+
+    typedef struct _fixedDepositImplInfo{
+        AccountInfo ainfo;
+        SavingsInfo sinfo;
+        FixedDepositInfo finfo;
+    } FixedDepositImplInfo;
+
+    typedef struct _normalSavingsImplInfo{
+        AccountInfo ainfo;
+        SavingsInfo sinfo;
+    } NormalSavingsImplInfo;
 }

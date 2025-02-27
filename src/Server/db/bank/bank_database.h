@@ -9,8 +9,8 @@
 #include "tables/accountdb.h"
 #include "tables/customerdb.h"
 #include "tables/transaction_logdb.h"
-#include "tables/fixedDeposit.h"
-#include "tables/savings.h"
+#include "tables/fixedDepositdb.h"
+#include "tables/savingsdb.h"
 
 using namespace sqlite_orm;
 

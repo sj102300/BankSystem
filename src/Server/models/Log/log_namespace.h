@@ -3,7 +3,7 @@
 
 namespace log{
     enum{
-        DEPOSIT = 1, TRANSFER, WITHDRAW
+        DEPOSIT = 1, WITHDRAW, TRANSFER_DEST, TRANSFER_SRC
     };
 
     typedef struct _logInfo{
