@@ -4,13 +4,14 @@
             "name": "linux-gcc-x64",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/protos_build/**",
                 "${workspaceFolder}/3rd_party/sqlite_orm/include/**",
-                "${workspaceFolder}/src/BankSystem/**",
-                "${workspaceFolder}/src/db/**",
-                "${workspaceFolder}/src/db/bank/**",
-                "${workspaceFolder}/src/db/bank/utils/**",
-                "${workspaceFolder}/src/db/bank/models/**",
-                "${workspaceFolder}/src/db/core/**"
+                "${workspaceFolder}/src/Server/BankSystem/**",
+                "${workspaceFolder}/src/Server/db/**",
+                "${workspaceFolder}/src/Server/db/bank/**",
+                "${workspaceFolder}/src/Server/db/bank/utils/**",
+                "${workspaceFolder}/src/Server/db/bank/models/**",
+                "${workspaceFolder}/src/Server/db/core/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

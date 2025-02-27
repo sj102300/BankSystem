@@ -9,6 +9,8 @@
 #include "models/accountdb.h"
 #include "models/customerdb.h"
 #include "models/transaction_logdb.h"
+#include "models/fixedDeposit.h"
+#include "models/savings.h"
 
 using namespace sqlite_orm;
 
@@ -17,7 +19,9 @@ class BankDatabase : public Database
 private:
     using Storage = decltype(make_storage("", Customer::getTableDefinition(),
                                           Account::getTableDefinition(),
-                                          TransactionLog::getTableDefinition()));
+                                          TransactionLog::getTableDefinition(),
+                                          Savings::getTableDefinition(),
+                                          FixedDeposit::getTableDefinition()));
 
     std::unique_ptr<Storage> storage;
 
@@ -38,7 +42,9 @@ public:
     {
         storage = std::make_unique<Storage>(make_storage(
             db_path, Customer::getTableDefinition(), Account::getTableDefinition(),
-            TransactionLog::getTableDefinition()));
+            TransactionLog::getTableDefinition(),
+            Savings::getTableDefinition(),
+            FixedDeposit::getTableDefinition()));
         storage->sync_schema();
     }
 

@@ -34,7 +34,7 @@ std::tuple<bool, const Customer> CustomerDB::GetCustomer(int cusId)
 std::tuple<bool, const Customer> CustomerDB::GetCustomer(std::string &name)
 {
     BankDatabase *db = BankDatabase::getInstance();
-    auto customer = db->getStorage().get_all<Customer>(where(c(&Customer::cus_name) == name));
+    auto customer = db->getStorage().get_all<Customer>(where(c(&Customer::name) == name));
     if (customer.empty())
         return {false, {0, "\0"}}; // 고객 조회 실패.
     return {true, customer[0]};
@@ -43,7 +43,7 @@ std::tuple<bool, const Customer> CustomerDB::GetCustomer(std::string &name)
 void CustomerDB::UpdateCustomer(int cusId, std::string &changing_name)
 {
     BankDatabase *db = BankDatabase::getInstance();
-    db->getStorage().update_all(set(c(&Customer::cus_name) = changing_name),
+    db->getStorage().update_all(set(c(&Customer::name) = changing_name),
                                 where(c(&Customer::cusId) == cusId));
 }
 

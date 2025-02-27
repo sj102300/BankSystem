@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import public "google/protobuf/empty.proto";
+
+package bank;
+
+// 서비스 이름은 PascalCase
+service BankService {
+    rpc deposit (DepositRequest) returns (DepositResponse) {}
+}
+
+// request와 response는 구분해서
+message DepositRequest {
+	uint64 input_money = 1;
+}
+
+message DepositResponse {
+	uint64 input_money = 1;
+	uint64 balance = 2; 
+}

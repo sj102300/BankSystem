@@ -1,0 +1,43 @@
+
+Table Account {
+  accId string [primary key]  //계좌번호
+  cusId integer
+  status bool
+  accountType integer
+  createdAt string
+}
+
+Table SavingsAccount{
+  accId string [primary key]
+  balance unsignedinteger
+  interestRate double
+}
+
+Table FixedDepositAccount{
+  accId string [primary key]  
+  monthlyDepositAmount unsignedinteger
+  duedate string
+}
+
+Table Customer {
+  cusId string [primary key]  //회원가입 id
+  password string
+  name string
+}
+
+Table TransactionLog {
+  logId string [primary key]  //auto increment
+  logType integer
+  createdAt string
+  accId integer
+  cusId integer
+  tradeAmount integer //거래금액 
+  remainingBalance integer   //남은 잔액
+}
+
+Ref: Account.cusId > Customer.cusId
+Ref: SavingsAccount.accId - Account.accId [unique]
+Ref: FixedDepositAccount.accId - Account.accId [unique]
+
+Ref: TransactionLog.cusId > Customer.cusId
+Ref: TransactionLog.accId > Account.accId
