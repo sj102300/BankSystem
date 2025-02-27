@@ -1,7 +1,5 @@
 
 #include "transaction_controller.h"
-#include "accountdb.h"
-#include "savingsdb.h"
 #include "transaction_logdb.h"
 #include "get_current_time.h"
 
@@ -51,13 +49,13 @@ void TransactionController::MakeTransferLog(unsigned long long trade_amount, Acc
     
     //받은쪽 로그
     TransactionLog destInfo = {
-        0, destAcc.accId, srcAcc.cusId, destAcc.accNum, log::TRANSFER_DEST, trade_amount, destSavings.balance, createdAt
+        0, destAcc.accId, srcAcc.cusId, destAcc.accNum, logging::TRANSFER_DEST, trade_amount, destSavings.balance, createdAt
     };
     TransactionLogDB::CreateTransactionLog(destInfo);
     
     //보낸쪽 로그
     TransactionLog srcInfo = {
-        0, srcAcc.accId, srcAcc.cusId, srcAcc.accNum, log::TRANSFER_SRC, trade_amount, srcSavings.balance, createdAt
+        0, srcAcc.accId, srcAcc.cusId, srcAcc.accNum, logging::TRANSFER_SRC, trade_amount, srcSavings.balance, createdAt
     };
     TransactionLogDB::CreateTransactionLog(srcInfo);
     return;

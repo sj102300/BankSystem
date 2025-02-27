@@ -1,9 +1,7 @@
 
 #include "account_controller.h"  //같은 폴더내에 있는 account.h
-#include "accountdb.h"
 #include "savingsdb.h"
 #include "fixedDepositdb.h"
-#include "transaction_logdb.h"
 
 account::FixedDepositImplInfo AccountController::CreateFixedDepositAccount(unsigned int cusId, double interestRate, unsigned long long monthly_payment, std::string duedate){
     Account newAcc = AccountDB::CreateAccount(cusId, account::FIXED_DEPOSIT);

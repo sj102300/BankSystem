@@ -3,7 +3,7 @@
 
 class TransferLog: public Transaction{
 public:
-    TransferLog(log::LogInfo linfo, log::TransactionInfo tinfo): Transaction(linfo, tinfo) {}
+    TransferLog(logging::LogInfo linfo, logging::TransactionInfo tinfo): Transaction(linfo, tinfo) {}
     
     void make_log() override;
 };

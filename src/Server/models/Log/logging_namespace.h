@@ -1,7 +1,7 @@
 
 #include <string>
 
-namespace log{
+namespace logging{
     enum{
         DEPOSIT = 1, WITHDRAW, TRANSFER_DEST, TRANSFER_SRC
     };

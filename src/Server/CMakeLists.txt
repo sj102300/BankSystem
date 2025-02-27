@@ -40,6 +40,29 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(sqlite_orm)
 
+# set(MODEL_SOURCES
+#     ${CMAKE_CURRENT_SOURCE_DIR}/models/Account/Savings/FixedDeposit/fixed_deposit.cc
+#     ${CMAKE_CURRENT_SOURCE_DIR}/models/Account/Savings/NormalSavings/normal_savings.cc
+# )
+
+set(MODEL_HEADERS
+    ${CMAKE_CURRENT_SOURCE_DIR}/models/Account/account_namespace.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/models/Customer/customer_namespace.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/models/Log/logging_namespace.h
+)
+
+set(CONTROLLER_HEADERS
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/controller/account_controller.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/controller/customer_controller.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/controller/transaction_controller.h
+)
+
+set(CONTROLLER_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/controller/account_controller.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/controller/customer_controller.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/controller/transaction_controller.cc
+)
+
 # Source files for database
 set(DB_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core/database.cc
@@ -85,6 +108,9 @@ add_executable(${PROJECT_NAME}
     # ${APP_HEADERS}
     ${DB_SOURCES}
     ${DB_HEADERS}
+    ${MODEL_HEADERS}
+    ${CONTROLLER_HEADERS}
+    ${CONTROLLER_SOURCES}
 )
 
 # Link libraries

@@ -1,10 +1,10 @@
 
-#include "log.h"
+#include "logging.h"
 
 class Transaction : public Log{
 protected:
-    Transaction(log::LogInfo linfo, log::TransactionInfo tinfo): Log(linfo), info_(tinfo) {}
+    Transaction(logging::LogInfo linfo, logging::TransactionInfo tinfo): Log(linfo), info_(tinfo) {}
 
 private:
-    const log::TransactionInfo info_;
+    const logging::TransactionInfo info_;
 };
