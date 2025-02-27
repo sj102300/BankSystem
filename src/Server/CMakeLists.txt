@@ -19,7 +19,8 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/db
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/controller
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/utils
 )
 
@@ -44,9 +45,9 @@ set(DB_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core/database.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/accountdb.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/customerdb.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/fixedDeposit.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/fixedDepositdb.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/transaction_logdb.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/savings.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/savingsdb.cc
 )
 
 # Header files for database
@@ -56,8 +57,8 @@ set(DB_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/accountdb.h
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/customerdb.h
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/transaction_logdb.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/fixedDeposit.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/savings.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/fixedDepositdb.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/savingsdb.h
 )
 
 # Main application source files (excluding unnecessary files)
