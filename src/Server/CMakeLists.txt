@@ -42,19 +42,19 @@ FetchContent_MakeAvailable(sqlite_orm)
 # Source files for database
 set(DB_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core/database.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/accountdb.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/customerdb.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/accountdb.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/customerdb.cc
 )
 
 # Header files for database
 set(DB_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core/database.h
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/bank_database.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/accountdb.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/customerdb.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/transaction_logdb.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/fixedDeposit.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/savings.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/accountdb.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/customerdb.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/transaction_logdb.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/fixedDeposit.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/savings.h
 )
 
 # Main application source files (excluding unnecessary files)

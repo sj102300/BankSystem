@@ -16,9 +16,18 @@ struct FixedDeposit
 	{
 		return make_table(
 			"FixedDeposit",
-			make_column("accId", &FixedDeposit::accId, primary_key().autoincrement()),
+			make_column("accId", &FixedDeposit::accId, primary_key()),
 			make_column("monthlyPayment", &FixedDeposit::monthlyPayment),
 			make_column("duedate", &FixedDeposit::duedate),
 			foreign_key(&FixedDeposit::accId).references(&Account::accId));
 	}
+};
+
+class FixedDepositDB{
+public:
+	FixedDepositDB();
+	static FixedDeposit CreateFixedDeposit(unsigned int accId, unsigned long long monthly_payment, std::string duedate);
+	static std::tuple<bool, FixedDeposit> GetFixedDeposit(unsigned int accId);
+	static void UpdateFixedDeposit();
+	static void DeleteFixedDeposit();  //구현안할거임
 };

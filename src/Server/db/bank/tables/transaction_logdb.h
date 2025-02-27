@@ -8,14 +8,13 @@ using namespace sqlite_orm;
 
 struct TransactionLog
 {
-    int logId;
-    int accountId;     // Account 테이블의 id를 참조
-    std::string accId; // 12자리 계좌번호 (조회용)
-    int cusId;
-    unsigned int transaction_type; // 입금시 1, 출금시 2
+    unsigned int logId;
+    unsigned int accId;     // Account 테이블의 id를 참조
+    unsigned int cusId;     // Customer 테이블의 id를 참조
+    std::string accNum; // 12자리 계좌번호 (조회용)
+    unsigned int transaction_type; // 입금시 1, 송금시 2, 출금시 3
     unsigned int trade_amount;
     unsigned int remaining_balance;
-    std::string accNum;
     std::string created_at;
     unsigned int logType;
 
