@@ -16,20 +16,26 @@ struct TransactionLog
     unsigned int trade_amount;
     unsigned int remaining_balance;
     std::string created_at;
-    unsigned int logType;
 
     static auto getTableDefinition()
     {
         return make_table(
             "TransactionLog",
             make_column("logId", &TransactionLog::logId, primary_key().autoincrement()),
+            make_column("accId", &TransactionLog::accId),
             make_column("cusId", &TransactionLog::cusId),
-            make_column("createdAt", &TransactionLog::created_at),
             make_column("accNum", &TransactionLog::accNum),
-            make_column("remainingBalance", &TransactionLog::remaining_balance),
+            make_column("transactionType", &TransactionLog::transaction_type),
             make_column("tradeAmount", &TransactionLog::trade_amount),
-            make_column("logType", &TransactionLog::logType),
+            make_column("remainingBalance", &TransactionLog::remaining_balance),
+            make_column("createdAt", &TransactionLog::created_at),
             foreign_key(&TransactionLog::accNum).references(&Account::accNum),
-            foreign_key(&TransactionLog::cusId).references(&Account::cusId));
+            foreign_key(&TransactionLog::cusId).references(&Customer::cusId));
     }
+};
+
+class TransactionLogDB{
+public:
+    static TransactionLog CreateTransactionLog(TransactionLog info);
+    static std::vector<TransactionLog> GetTransactionLogsByaccNum(std::string accNum);
 };

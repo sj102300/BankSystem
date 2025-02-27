@@ -44,6 +44,9 @@ set(DB_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core/database.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/accountdb.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/customerdb.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/fixedDeposit.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/transaction_logdb.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables/savings.cc
 )
 
 # Header files for database
@@ -59,7 +62,7 @@ set(DB_HEADERS
 
 # Main application source files (excluding unnecessary files)
 set(APP_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/main/main.cpp
     # ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/atm.cc
 )
 
