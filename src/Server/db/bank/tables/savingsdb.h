@@ -16,9 +16,18 @@ struct Savings
 	{
 		return make_table(
 			"Savings",
-			make_column("accId", &Savings::accId, primary_key().autoincrement()),
+			make_column("accId", &Savings::accId, primary_key()),
 			make_column("balance", &Savings::balance, default_value(0)),
 			make_column("interestRate", &Savings::interestRate, default_value(0)),
 			foreign_key(&Savings::accId).references(&Account::accId));
 	}
+};
+
+class SavingsDB{
+public:
+	SavingsDB();
+	static Savings CreateSavings(unsigned int accId, double interestRate);
+	static std::tuple<bool, Savings> GetSavings(unsigned int accId);
+	static void UpdateSavings(Savings& savings);
+	static void DeleteSavings();
 };

@@ -63,12 +63,16 @@ endif()
 # Include directories
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
-    # ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem
     ${CMAKE_CURRENT_SOURCE_DIR}/db
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/controller
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/utils
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/Accout
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/Customer
+    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/Log
     ${CMAKE_CURRENT_SOURCE_DIR}/grpcService
     ${CMAKE_CURRENT_SOURCE_DIR}/../../protos_build
 )
@@ -80,44 +84,9 @@ configure_file(
 )
 include_directories(${CMAKE_BINARY_DIR})
 
-
-# # Source files for database
-# set(DB_SOURCES
-#     ${CMAKE_CURRENT_SOURCE_DIR}/db/core/database.cc
-#     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/accountdb.cc
-#     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/customerdb.cc
-# )
-
-# # Header files for database
-# set(DB_HEADERS
-#     ${CMAKE_CURRENT_SOURCE_DIR}/db/core/database.h
-#     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/bank_database.h
-#     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/accountdb.h
-#     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/customerdb.h
-#     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/transaction_logdb.h
-#     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/fixedDeposit.h
-#     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/savings.h
-#     ${CMAKE_CURRENT_SOURCE_DIR}/common/myUtil.h
-# )
-
-# # Main application source files (excluding unnecessary files)
-# set(APP_SOURCES
-#     ${CMAKE_CURRENT_SOURCE_DIR}/main.cc
-#     # ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/atm.cc
-# )
-
-# # Main application header files
-# set(APP_HEADERS
-#     ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/atm.h
-#     ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem/common_option.h
-# )
-
 # Define the list of directories to search
 set(SOURCE_DIRS
     ${CMAKE_CURRENT_SOURCE_DIR}
-    # ${CMAKE_CURRENT_SOURCE_DIR}/BankSystem
-    # ${CMAKE_CURRENT_SOURCE_DIR}/common
-    # ${CMAKE_CURRENT_SOURCE_DIR}/utils
 )
 
 # Initialize empty lists

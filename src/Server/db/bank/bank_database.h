@@ -6,11 +6,11 @@
 
 #include "config.h"
 #include "core/database.h"
-#include "models/accountdb.h"
-#include "models/customerdb.h"
-#include "models/transaction_logdb.h"
-#include "models/fixedDeposit.h"
-#include "models/savings.h"
+#include "tables/accountdb.h"
+#include "tables/customerdb.h"
+#include "tables/transaction_logdb.h"
+#include "tables/fixedDepositdb.h"
+#include "tables/savingsdb.h"
 
 using namespace sqlite_orm;
 
