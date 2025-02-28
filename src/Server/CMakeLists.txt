@@ -64,15 +64,15 @@ endif()
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/db
+    ${CMAKE_CURRENT_SOURCE_DIR}/controller
     ${CMAKE_CURRENT_SOURCE_DIR}/db/core
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/controller
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/tables
     ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/utils
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/Accout
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/Customer
-    ${CMAKE_CURRENT_SOURCE_DIR}/db/bank/models/Log
+    ${CMAKE_CURRENT_SOURCE_DIR}/models/Account
+    ${CMAKE_CURRENT_SOURCE_DIR}/models/Customer
+    ${CMAKE_CURRENT_SOURCE_DIR}/models/Log
     ${CMAKE_CURRENT_SOURCE_DIR}/grpcService
     ${CMAKE_CURRENT_SOURCE_DIR}/../../protos_build
 )
@@ -87,6 +87,7 @@ include_directories(${CMAKE_BINARY_DIR})
 # Define the list of directories to search
 set(SOURCE_DIRS
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../protos_build
 )
 
 # Initialize empty lists

@@ -2,10 +2,19 @@ syntax = "proto3";
 
 import public "google/protobuf/empty.proto";
 
+import public "account.proto";
+import public "customer.proto";
+
 package bank;
 
 // 서비스 이름은 PascalCase
 service BankService {
+	rpc signUp (bank.customer.SignUpRequest) returns (bank.customer.SignUpResponse) {}
+	rpc Login (bank.customer.LogInRequest) returns (bank.customer.LogInResponse) {}
+
+	rpc CreateFixedDepositAccount(bank.account.CreateFixedDepositAccountRequest) returns (bank.account.CreateFixedDepositAccountResponse) {}
+	// rpc CreateNormalSavingsAccount() returns () {}
+
     rpc deposit (DepositRequest) returns (DepositResponse) {}
 }
 
@@ -18,3 +27,4 @@ message DepositResponse {
 	uint64 input_money = 1;
 	uint64 balance = 2; 
 }
+

@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package bank.account;
+
+// CreateFixedDepositAccount
+message CreateFixedDepositAccountRequest {
+	uint64 cusId = 1;
+	double interestRate = 2;
+	uint64 monthly_payment = 3;
+	string duedate = 4;
+}
+
+message CreateFixedDepositAccountResponse {
+	string accNum = 1;
+	uint64 monthly_payment = 2;
+	string duedate = 3;
+}
+
+// CreateNormalSavingsAccount
+message CreateNormalSavingsAccountRequest {
+	string userID = 1;
+	string password = 2;
+	string name = 3;
+}
+
+message CreateNormalSavingsAccountResponse {
+	bool success = 1;
+	string userID = 2;
+	string name = 3;
+	string msg = 4;
+}
+
+// GetAccountLogs
+message GetAccountLogsRequest {
+	string userID = 1;
+	string password = 2;
+	string name = 3;
+}
+
+message GetAccountLogsResponse {
+	bool success = 1;
+	string userID = 2;
+	string name = 3;
+	string msg = 4;
+}
+
+// GetAccountsByUserId
+message GetAccountsByUserIdRequest {
+	string userID = 1;
+	string password = 2;
+	string name = 3;
+}
+
+message GetAccountsByUserIdResponse {
+	bool success = 1;
+	string userID = 2;
+	string name = 3;
+	string msg = 4;
+}
