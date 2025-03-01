@@ -4,11 +4,11 @@
 
 SavingsDB::SavingsDB() {}
 
-Savings SavingsDB::CreateSavings(unsigned int accId, double interestRate){
+Savings SavingsDB::CreateSavings(std::string userId, double interestRate){
     BankDatabase *db = BankDatabase::getInstance();
     
     int insertedId = db->getStorage().insert(Savings{
-        accId,
+        userId,
         0,
         interestRate
     });
@@ -17,10 +17,10 @@ Savings SavingsDB::CreateSavings(unsigned int accId, double interestRate){
     return insertedSavings;
 }
 
-std::tuple<bool, Savings> SavingsDB::GetSavings(unsigned int accId){
+std::tuple<bool, Savings> SavingsDB::GetSavings(std::string accNum){
     BankDatabase *db = BankDatabase::getInstance();
 
-    std::vector<Savings> ret = db->getStorage().get_all<Savings>(where(c(&Savings::accId) == accId));
+    std::vector<Savings> ret = db->getStorage().get_all<Savings>(where(c(&Savings::accNum) == accNum));
 
     if(ret.empty())
         return {false, {}};

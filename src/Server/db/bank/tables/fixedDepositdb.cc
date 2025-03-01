@@ -4,11 +4,11 @@
 
 FixedDepositDB::FixedDepositDB() {}
 
-FixedDeposit FixedDepositDB::CreateFixedDeposit(unsigned int accId, unsigned long long monthly_payment, std::string duedate){
+FixedDeposit FixedDepositDB::CreateFixedDeposit(std::string accNum, unsigned long long monthly_payment, std::string duedate){
     BankDatabase *db = BankDatabase::getInstance();
 
     int insertedId = db->getStorage().insert(FixedDeposit{
-        accId,
+        accNum,
         monthly_payment,
         duedate
     });
@@ -17,10 +17,10 @@ FixedDeposit FixedDepositDB::CreateFixedDeposit(unsigned int accId, unsigned lon
     return insertedFixedDeposit;
 }
 
-std::tuple<bool, FixedDeposit> FixedDepositDB::GetFixedDeposit(unsigned int accId){
+std::tuple<bool, FixedDeposit> FixedDepositDB::GetFixedDeposit(std::string accNum){
     BankDatabase *db = BankDatabase::getInstance();
 
-    std::vector<FixedDeposit> ret = db->getStorage().get_all<FixedDeposit>(where(c(&FixedDeposit::accId) == accId));
+    std::vector<FixedDeposit> ret = db->getStorage().get_all<FixedDeposit>(where(c(&FixedDeposit::accNum) == accNum));
 
     if(ret.empty())
         return {false, {}};

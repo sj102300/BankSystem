@@ -13,7 +13,7 @@ struct Account
 {
     unsigned int accId;          // 자동 증가 primary key
     std::string accNum; // 12자리 계좌번호
-    unsigned int cusId;
+    std::string userId;
     unsigned int account_type;
     bool status;
     std::string created_at;
@@ -24,11 +24,11 @@ struct Account
             "Account",
             make_column("accId", &Account::accId, primary_key().autoincrement()),
             make_column("accNum", &Account::accNum, unique(), check(length(&Account::accNum) == 12)),
-            make_column("cusId", &Account::cusId),
+            make_column("userId", &Account::userId),
             make_column("status", &Account::status, default_value(true)),
             make_column("accountType", &Account::account_type),
             make_column("createdAt", &Account::created_at),
-            foreign_key(&Account::cusId).references(&Customer::cusId));
+            foreign_key(&Account::userId).references(&Customer::userId));
     }
 };
 
@@ -37,9 +37,9 @@ class AccountDB
 public:
     AccountDB();
     static bool isExistAccNum(std::string &accNum);
-    static Account CreateAccount(unsigned int cusId, unsigned int account_type);
-    static std::vector<Account> GetAccountsByCusId(unsigned int cusId);
+    static Account CreateAccount(std::string userId, unsigned int account_type);
+    static std::vector<Account> GetAccountsByUserId(std::string userId);
     static std::tuple<bool, Account> GetAccountByAccNum(std::string accNum);
     static void UpdateAccount(Account &targetAcc);
-    static void DeleteAccount(std::string accId);
+    static void DeleteAccount(std::string accNum);
 };
