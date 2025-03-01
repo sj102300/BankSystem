@@ -11,6 +11,7 @@ namespace account{
         const std::string userId;
         const unsigned int account_type;
         const bool status;
+        const std::string create_at;
     } AccountInfo;
 
     typedef struct _savingsInfo{
