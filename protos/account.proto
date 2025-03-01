@@ -4,7 +4,7 @@ package bank.account;
 
 // CreateFixedDepositAccount
 message CreateFixedDepositAccountRequest {
-	uint64 cusId = 1;
+	uint32 userId = 1;
 	double interestRate = 2;
 	uint64 monthly_payment = 3;
 	string duedate = 4;

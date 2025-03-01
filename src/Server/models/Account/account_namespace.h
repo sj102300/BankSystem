@@ -7,22 +7,20 @@ namespace account{
     };
 
     typedef struct _accountInfo{
-        const unsigned int accId_;
-        const std::string accNum_; //계좌번호
-        const unsigned int cusId_; 
-        const unsigned int accountType_;
-        bool status_;
-        const std::string createdAt_;
+        const std::string accNum; //계좌번호
+        const std::string userId;
+        const unsigned int account_type;
+        const bool status;
     } AccountInfo;
 
     typedef struct _savingsInfo{
-        long long balance_;
-        double interestRate_;
+        long long balance;
+        double interestRate;
     } SavingsInfo;
 
     typedef struct _fixedDepositInfo{
-        unsigned long long monthlyPayment_;
-        std::string maturityDate_;
+        unsigned long long monthlyPayment;
+        std::string maturityDate;
     } FixedDepositInfo;
 
     typedef struct _fixedDepositImplInfo{

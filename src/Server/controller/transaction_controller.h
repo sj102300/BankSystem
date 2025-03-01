@@ -10,5 +10,5 @@ public:
     static void Deposit();
     static void Withdraw();
 private:
-    static void MakeTransferLog(unsigned long long trade_amount, Account& destAcc, Savings& destSavings, Account& srcAcc, Savings& srcSavings);
+    static void MakeTransferLog(unsigned long long trade_amount, std::string destAccNum, std::string srcAccNum, std::string srcUserId);
 };

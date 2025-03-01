@@ -19,7 +19,7 @@ struct Savings
 			make_column("accNum", &Savings::accNum, primary_key()),
 			make_column("balance", &Savings::balance, default_value(0)),
 			make_column("interestRate", &Savings::interestRate, default_value(0)),
-			foreign_key(&Savings::accNum).references(&Account::accId));
+			foreign_key(&Savings::accNum).references(&Account::accNum));
 	}
 };
 
@@ -28,6 +28,7 @@ public:
 	SavingsDB();
 	static Savings CreateSavings(std::string accNum, double interestRate);
 	static std::tuple<bool, Savings> GetSavings(std::string accNum);
+	static void SavingsDB::UpdateSavingsBalance(std::string accNum, unsigned long long changedBalance);
 	static void UpdateSavings(Savings& savings);
 	static void DeleteSavings();
 };

@@ -28,6 +28,14 @@ std::tuple<bool, Savings> SavingsDB::GetSavings(std::string accNum){
     return {true, ret.at(0)};
 }
 
+void SavingsDB::UpdateSavingsBalance(std::string accNum, unsigned long long changedBalance){
+    BankDatabase *db = BankDatabase::getInstance();
+    
+    db->getStorage().update_all(set(c(&Savings::balance) = changedBalance),
+    where(c(&Savings::accNum) == accNum));
+
+}
+
 void SavingsDB::UpdateSavings(Savings& savings){
     BankDatabase *db = BankDatabase::getInstance();
     db->getStorage().update(savings);

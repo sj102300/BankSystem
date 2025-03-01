@@ -9,10 +9,10 @@ message SignUpRequest {
 }
 
 message SignUpResponse {
-	bool success = 1;
-	string userID = 2;
-	string name = 3;
-	string msg = 4;
+	bool status = 1;
+	string msg = 2;
+	string userID = 3;
+	string name = 4;
 }
 
 message LogInRequest {
@@ -21,8 +21,8 @@ message LogInRequest {
 }
 
 message LogInResponse {
-	bool success = 1;
-	string userID = 2;
-	string name = 3;
-	string msg = 4;
+	bool status = 1;
+	string msg = 2;
+	string userId = 3;
+	string name = 4;
 }

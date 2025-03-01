@@ -3,20 +3,27 @@
 #include "bank_database.h"
 #include "get_current_time.h"
 
-TransactionLog TransactionLogDB::CreateTransactionLog(TransactionLog info){
+TransactionLog TransactionLogDB::CreateTransactionLog(std::string accNum, std::string userId, unsigned int transaction_type,
+                                                      unsigned long long trade_amount, unsigned long long remaining_balance)
+{
     BankDatabase *db = BankDatabase::getInstance();
 
-    info.created_at = TimeStamp::get_current_time();
-    
-    int insertedId = db->getStorage().insert(info);
+    int insertedId = db->getStorage().insert(TransactionLog{
+        0,
+        accNum,
+        userId,
+        transaction_type,
+        trade_amount,
+        remaining_balance,
+        TimeStamp::get_current_time()});
 
     TransactionLog insertedLog = db->getStorage().get<TransactionLog>(insertedId);
     return insertedLog;
 }
 
-std::vector<TransactionLog> TransactionLogDB::GetTransactionLogsByaccNum(std::string accNum){
+std::vector<TransactionLog> TransactionLogDB::GetTransactionLogsByaccNum(std::string accNum)
+{
     BankDatabase *db = BankDatabase::getInstance();
 
-    std::vector<TransactionLog> ret = db->getStorage().get_all<TransactionLog>(where(c(&TransactionLog::accNum) == accNum));
-    return ret;
+    return db->getStorage().get_all<TransactionLog>(where(c(&TransactionLog::accNum) == accNum));
 }

@@ -13,18 +13,18 @@ service BankService {
 	rpc Login (bank.customer.LogInRequest) returns (bank.customer.LogInResponse) {}
 
 	rpc CreateFixedDepositAccount(bank.account.CreateFixedDepositAccountRequest) returns (bank.account.CreateFixedDepositAccountResponse) {}
-	// rpc CreateNormalSavingsAccount() returns () {}
+	// rpc CreateNormalSavingsAccount(bank.account) returns () {}
 
-    rpc deposit (DepositRequest) returns (DepositResponse) {}
+    // rpc deposit (DepositRequest) returns (DepositResponse) {}
 }
 
 // request와 response는 구분해서
-message DepositRequest {
-	uint64 input_money = 1;
-}
+// message DepositRequest {
+// 	uint64 input_money = 1;
+// }
 
-message DepositResponse {
-	uint64 input_money = 1;
-	uint64 balance = 2; 
-}
+// message DepositResponse {
+// 	uint64 input_money = 1;
+// 	uint64 balance = 2; 
+// }
 

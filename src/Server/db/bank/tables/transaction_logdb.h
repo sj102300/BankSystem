@@ -34,6 +34,7 @@ struct TransactionLog
 
 class TransactionLogDB{
 public:
-    static TransactionLog CreateTransactionLog(TransactionLog info);
+    static TransactionLog CreateTransactionLog(std::string accNum, std::string userId, unsigned int transaction_type, 
+        unsigned long long trade_amount, unsigned long long remaining_balance);
     static std::vector<TransactionLog> GetTransactionLogsByaccNum(std::string accNum);
 };
