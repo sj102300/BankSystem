@@ -25,7 +25,7 @@ message AccountInfo{
 // CreateFixedDepositAccount
 message CreateFixedDepositAccountRequest {
 	string userId = 1;
-	double interestRate = 2;
+	double interest_rate = 2;
 	uint64 monthly_payment = 3;
 	string duedate = 4;
 }
@@ -40,7 +40,7 @@ message CreateFixedDepositAccountResponse {
 // CreateNormalSavingsAccount
 message CreateNormalSavingsAccountRequest {
 	string userId = 1;
-	double interestRate = 2;
+	double interest_rate = 2;
 }
 
 message CreateNormalSavingsAccountResponse {

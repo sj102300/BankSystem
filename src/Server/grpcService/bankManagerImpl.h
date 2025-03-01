@@ -23,8 +23,12 @@ public:
   grpc::Status Login(grpc::ServerContext *context, const bank::customer::LogInRequest *request, bank::customer::LogInResponse *response);
 
   grpc::Status CreateFixedDepositAccount(grpc::ServerContext *context, const bank::account::CreateFixedDepositAccountRequest *request, bank::account::CreateFixedDepositAccountResponse *response);
+  grpc::Status CreateNormalSavingsAccount(grpc::ServerContext *context, const bank::account::CreateNormalSavingsAccountRequest *request, bank::account::CreateNormalSavingsAccountResponse *response);
   
-  // grpc::Status deposit(grpc::ServerContext *context, const bank::DepositRequest *request, bank::DepositResponse *response);
+  grpc::Status ListTransactionLogsByAccNum(grpc::ServerContext *context, const bank::account::ListTransactionLogsRequest *request, bank::account::ListTransactionLogsResponse *response);
+  grpc::Status ListAccountsByUserId(grpc::ServerContext *context, const bank::account::ListAccountsByUserIdRequest *request, bank::account::ListAccountsByUserIdResponse *response);
+
+  grpc::Status Transfer(grpc::ServerContext *context, const bank::account::TransferRequest *request, bank::account::TransferResponse *response);
 };
 
 #endif // BANK_MANAGER_IMPL_H

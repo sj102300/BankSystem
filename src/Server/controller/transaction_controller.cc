@@ -26,9 +26,9 @@ std::tuple<bool, std::string> TransactionController::Transfer(std::string destAc
     SavingsDB::UpdateSavingsBalance(destAcc.accNum, destSavings.balance + amount);
     SavingsDB::UpdateSavingsBalance(srcAcc.accNum, srcSavings.balance - amount);
 
-    MakeTransferLog(amount, destAccNum, srcAccNum, srcAcc.userId);
+    unsigned int srcTransferLogId = MakeTransferLog(amount, destAccNum, srcAccNum, srcAcc.userId);
 
-    return {true, "송금 성공"};
+    return {true, std::to_string(srcTransferLogId)};
 }
 
 void TransactionController::Deposit()
@@ -39,7 +39,13 @@ void TransactionController::Withdraw()
 {
 }
 
-void TransactionController::MakeTransferLog(unsigned long long trade_amount, std::string destAccNum, std::string srcAccNum,
+TransactionLog TransactionController::GetLogByLogId(unsigned int logId){
+    return TransactionLogDB::GetTransactionLogByLogId(logId);
+}
+
+
+//보낸쪽의 송금 로그 id 반환환
+unsigned int TransactionController::MakeTransferLog(unsigned long long trade_amount, std::string destAccNum, std::string srcAccNum,
                                             std::string srcUserId)
 {
     std::string createdAt = TimeStamp::get_current_time();

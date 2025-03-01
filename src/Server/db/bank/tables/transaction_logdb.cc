@@ -27,3 +27,11 @@ std::vector<TransactionLog> TransactionLogDB::GetTransactionLogsByaccNum(std::st
 
     return db->getStorage().get_all<TransactionLog>(where(c(&TransactionLog::accNum) == accNum));
 }
+
+TransactionLog TransactionLogDB::GetTransactionLogByLogId(unsigned int logId){
+    BankDatabase *db = BankDatabase::getInstance();
+
+    std::vector<TransactionLog> ret = db->getStorage().get_all<TransactionLog>(where(c(&TransactionLog::logId) == logId));
+
+    return ret.at(0);
+}
