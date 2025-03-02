@@ -1,32 +1,36 @@
 
 #include "account_controller.h"
-#include "savingsdb.h"
-#include "fixedDepositdb.h"
 
-account::FixedDepositImplInfo AccountController::CreateFixedDepositAccount(unsigned int cusId, double interestRate, unsigned long long monthly_payment, std::string duedate)
+std::tuple<bool, std::string> AccountController::CreateFixedDepositAccount(std::string userId, double interestRate, unsigned long long monthly_payment, std::string duedate)
 {
-    Account newAcc = AccountDB::CreateAccount(cusId, account::FIXED_DEPOSIT);
-    Savings newSavings = SavingsDB::CreateSavings(newAcc.accId, interestRate);
-    FixedDeposit newFixedDeposit = FixedDepositDB::CreateFixedDeposit(newAcc.accId, monthly_payment, duedate);
-
-    account::FixedDepositImplInfo ret = {
-        {newAcc.accId, newAcc.accNum, newAcc.cusId, newAcc.account_type, newAcc.status, newAcc.created_at},
-        {newSavings.balance, newSavings.interestRate},
-        {newFixedDeposit.monthlyPayment, newFixedDeposit.duedate}};
-    return ret;
+    Account newAcc = AccountDB::CreateAccount(userId, account::FIXED_DEPOSIT);
+    Savings newSavings = SavingsDB::CreateSavings(newAcc.accNum, interestRate);
+    FixedDeposit newFixedDeposit = FixedDepositDB::CreateFixedDeposit(newAcc.accNum, monthly_payment, duedate);
+    
+    // account::FixedDepositImplInfo ret = {
+    //     {newAcc.accNum, userId, newAcc.account_type, newAcc.status, newAcc.created_at},
+    //     {newSavings.balance, newSavings.interestRate},
+    //     {newFixedDeposit.monthlyPayment, newFixedDeposit.duedate}};
+    return {true, newAcc.accNum};
 }
 
-account::NormalSavingsImplInfo AccountController::CreateNormalSavingsAccount(unsigned int cusId, double interestRate)
+std::tuple<bool, std::string> AccountController::CreateNormalSavingsAccount(std::string userId, double interestRate)
 {
-    Account newAcc = AccountDB::CreateAccount(cusId, account::NORMAL_SAVINGS);
-    Savings newSavings = SavingsDB::CreateSavings(newAcc.accId, interestRate);
+    Account newAcc = AccountDB::CreateAccount(userId, account::NORMAL_SAVINGS);
+    Savings newSavings = SavingsDB::CreateSavings(newAcc.accNum, interestRate);
 
-    account::NormalSavingsImplInfo ret = {
-        {newAcc.accId, newAcc.accNum, newAcc.cusId, newAcc.account_type, newAcc.status, newAcc.created_at},
-        {newSavings.balance, newSavings.interestRate}};
+    // account::NormalSavingsImplInfo ret = {
+    //     {newAcc.accNum, userId, newAcc.account_type, newAcc.status, newAcc.created_at},
+    //     {newSavings.balance, newSavings.interestRate}};
 
-    return ret;
+    return {true, newAcc.accNum};
 }
+
+Account AccountController::GetAccountByAccNum(std::string accNum){
+    const auto [isAvailable, acc] = AccountDB::GetAccountByAccNum(accNum);
+    return acc;
+}
+
 
 std::vector<TransactionLog> AccountController::GetAccountLogs(std::string accNum)
 {
@@ -44,5 +48,5 @@ std::vector<Account> AccountController::GetAccountsByUserId(std::string userId)
         return {};
     }
 
-    return AccountDB::GetAccountsByCusId(cus.cusId);
+    return AccountDB::GetAccountsByUserId(userId);
 }

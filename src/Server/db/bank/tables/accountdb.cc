@@ -19,7 +19,7 @@ namespace
 
 AccountDB::AccountDB() {}
 
-Account AccountDB::CreateAccount(unsigned int cusId, unsigned int account_type)
+Account AccountDB::CreateAccount(std::string userId, unsigned int account_type)
 {
     BankDatabase *db = BankDatabase::getInstance();
     // db에 없는 새로운 계좌번호 생성
@@ -36,7 +36,7 @@ Account AccountDB::CreateAccount(unsigned int cusId, unsigned int account_type)
     int insertedId = db->getStorage().insert(Account{
         0,            // id (자동 생성)
         accNum,        // 계좌 ID
-        cusId,        // 고객 ID
+        userId,        // 고객 ID
         account_type, // 계좌 유형
         true,         // 활성화 상태
         createdAt     // 생성 시간
@@ -53,12 +53,12 @@ bool AccountDB::isExistAccNum(std::string &accNum)
     return db->getStorage().count<Account>(where(c(&Account::accNum) == accNum));
 }
 
-std::vector<Account> AccountDB::GetAccountsByCusId(unsigned int cusId)
+std::vector<Account> AccountDB::GetAccountsByUserId(std::string userId)
 {
     BankDatabase *db = BankDatabase::getInstance();
 
     std::vector<Account> ret =
-        db->getStorage().get_all<Account>(where(c(&Account::cusId) == cusId));
+        db->getStorage().get_all<Account>(where(c(&Account::userId) == userId));
 
     // 조회 결과가 비어있는 경우 빈 벡터 반환
     if (ret.empty())

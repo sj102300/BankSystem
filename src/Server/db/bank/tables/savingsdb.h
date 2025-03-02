@@ -8,7 +8,8 @@ using namespace sqlite_orm;
 
 struct Savings
 {
-	unsigned int accId;
+	unsigned int savingsId;
+	std::string accNum;
 	long long balance;
 	double interestRate;
 
@@ -16,18 +17,20 @@ struct Savings
 	{
 		return make_table(
 			"Savings",
-			make_column("accId", &Savings::accId, primary_key()),
+			make_column("savingsId", &Savings::savingsId, primary_key().autoincrement()),
+			make_column("accNum", &Savings::accNum, unique()),
 			make_column("balance", &Savings::balance, default_value(0)),
 			make_column("interestRate", &Savings::interestRate, default_value(0)),
-			foreign_key(&Savings::accId).references(&Account::accId));
+			foreign_key(&Savings::accNum).references(&Account::accNum));
 	}
 };
 
 class SavingsDB{
 public:
 	SavingsDB();
-	static Savings CreateSavings(unsigned int accId, double interestRate);
-	static std::tuple<bool, Savings> GetSavings(unsigned int accId);
+	static Savings CreateSavings(std::string accNum, double interestRate);
+	static std::tuple<bool, Savings> GetSavings(std::string accNum);
+	static void UpdateSavingsBalance(std::string accNum, unsigned long long changedBalance);
 	static void UpdateSavings(Savings& savings);
 	static void DeleteSavings();
 };

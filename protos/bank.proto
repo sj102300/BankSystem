@@ -7,24 +7,19 @@ import public "customer.proto";
 
 package bank;
 
-// 서비스 이름은 PascalCase
 service BankService {
-	rpc signUp (bank.customer.SignUpRequest) returns (bank.customer.SignUpResponse) {}
+	rpc SignUp (bank.customer.SignUpRequest) returns (bank.customer.SignUpResponse) {}
 	rpc Login (bank.customer.LogInRequest) returns (bank.customer.LogInResponse) {}
 
 	rpc CreateFixedDepositAccount(bank.account.CreateFixedDepositAccountRequest) returns (bank.account.CreateFixedDepositAccountResponse) {}
-	// rpc CreateNormalSavingsAccount() returns () {}
+	rpc CreateNormalSavingsAccount(bank.account.CreateNormalSavingsAccountRequest) returns (bank.account.CreateNormalSavingsAccountResponse) {}
 
-    rpc deposit (DepositRequest) returns (DepositResponse) {}
+	rpc ListTransactionLogsByAccNum(bank.account.ListTransactionLogsRequest) returns (bank.account.ListTransactionLogsResponse) {}
+	rpc ListAccountsByUserId(bank.account.ListAccountsByUserIdRequest) returns (bank.account.ListAccountsByUserIdResponse) {}
+
+	rpc Transfer(bank.account.TransferRequest) returns (bank.account.TransferResponse) {}
+
 }
 
-// request와 response는 구분해서
-message DepositRequest {
-	uint64 input_money = 1;
-}
-
-message DepositResponse {
-	uint64 input_money = 1;
-	uint64 balance = 2; 
-}
-
+//response의 1번은 api의 성공과 실패 여부를 반환합니다.
+//response의 2번은 status가 false일 경우 에러 메시지 또는 에러 코드를 반환합니다.
