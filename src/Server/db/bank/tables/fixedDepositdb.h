@@ -9,6 +9,7 @@ using namespace sqlite_orm;
 
 struct FixedDeposit
 {
+	unsigned int fixedDepositId;
 	std::string accNum;
 	unsigned long long monthlyPayment;
 	std::string duedate;
@@ -17,7 +18,8 @@ struct FixedDeposit
 	{
 		return make_table(
 			"FixedDeposit",
-			make_column("accNum", &FixedDeposit::accNum, primary_key()),
+			make_column("fixedDepositId", &FixedDeposit::fixedDepositId, primary_key().autoincrement()),
+			make_column("accNum", &FixedDeposit::accNum, unique()),
 			make_column("monthlyPayment", &FixedDeposit::monthlyPayment),
 			make_column("duedate", &FixedDeposit::duedate),
 			foreign_key(&FixedDeposit::accNum).references(&Account::accNum));

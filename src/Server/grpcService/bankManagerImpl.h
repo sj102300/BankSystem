@@ -19,7 +19,7 @@ public:
   bankManagerImpl();
   ~bankManagerImpl();
 
-  grpc::Status SignUp(grpc::ServerContext *context, const bank::customer::SignUpRequest *request, bank::customer::SignUpResponse *response);
+  grpc::Status SignUp(::grpc::ServerContext* context, const ::bank::customer::SignUpRequest* request, ::bank::customer::SignUpResponse* response) override;
   grpc::Status Login(grpc::ServerContext *context, const bank::customer::LogInRequest *request, bank::customer::LogInResponse *response);
 
   grpc::Status CreateFixedDepositAccount(grpc::ServerContext *context, const bank::account::CreateFixedDepositAccountRequest *request, bank::account::CreateFixedDepositAccountResponse *response);

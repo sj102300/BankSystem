@@ -1,8 +1,5 @@
 
 #include "account_controller.h"
-#include "savingsdb.h"
-#include "customerdb.h"
-#include "fixedDepositdb.h"
 
 std::tuple<bool, std::string> AccountController::CreateFixedDepositAccount(std::string userId, double interestRate, unsigned long long monthly_payment, std::string duedate)
 {

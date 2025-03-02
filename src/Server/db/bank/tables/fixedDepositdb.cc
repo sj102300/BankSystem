@@ -8,6 +8,7 @@ FixedDeposit FixedDepositDB::CreateFixedDeposit(std::string accNum, unsigned lon
     BankDatabase *db = BankDatabase::getInstance();
 
     int insertedId = db->getStorage().insert(FixedDeposit{
+        0,
         accNum,
         monthly_payment,
         duedate

@@ -10,10 +10,11 @@ bankManagerImpl::~bankManagerImpl() {}
 grpc::Status bankManagerImpl::SignUp(grpc::ServerContext *context, const bank::customer::SignUpRequest *request, bank::customer::SignUpResponse *response)
 {
     const auto [res, msg] = CustomerController::SignUp(request->userid(), request->password(), request->name());
-    
+
     response->set_status(res);
     response->set_message(msg);
-    if(res){
+    if (res)
+    {
         Customer cus = CustomerController::GetCustomerInfo(request->userid());
         response->set_userid(cus.userId);
         response->set_name(cus.name);
@@ -29,7 +30,8 @@ grpc::Status bankManagerImpl::Login(grpc::ServerContext *context, const bank::cu
     response->set_status(res);
     response->set_message(msg);
 
-    if(res){
+    if (res)
+    {
         Customer cus = CustomerController::GetCustomerInfo(request->userid());
         response->set_userid(cus.userId);
         response->set_name(cus.name);
@@ -45,7 +47,8 @@ grpc::Status bankManagerImpl::CreateFixedDepositAccount(grpc::ServerContext *con
     response->set_status(res);
     response->set_message(res ? "계좌 생성 성공" : "계좌 생성 실패");
 
-    if(res){
+    if (res)
+    {
         Account acc = AccountController::GetAccountByAccNum(msg);
         response->set_accnum(acc.accNum);
     }
@@ -60,7 +63,8 @@ grpc::Status bankManagerImpl::CreateNormalSavingsAccount(grpc::ServerContext *co
     response->set_status(res);
     response->set_message(res ? "계좌 생성 성공" : "계좌 생성 실패");
 
-    if(res){
+    if (res)
+    {
         Account acc = AccountController::GetAccountByAccNum(msg);
         response->set_accnum(acc.accNum);
     }
@@ -68,13 +72,15 @@ grpc::Status bankManagerImpl::CreateNormalSavingsAccount(grpc::ServerContext *co
     return grpc::Status();
 }
 
-grpc::Status bankManagerImpl::ListTransactionLogsByAccNum(grpc::ServerContext *context, const bank::account::ListTransactionLogsRequest *request, bank::account::ListTransactionLogsResponse *response){
+grpc::Status bankManagerImpl::ListTransactionLogsByAccNum(grpc::ServerContext *context, const bank::account::ListTransactionLogsRequest *request, bank::account::ListTransactionLogsResponse *response)
+{
 
     std::vector<TransactionLog> logs = AccountController::GetAccountLogs(request->accnum());
-    
+
     response->set_status(true);
-    for (const auto& log : logs) {
-        auto* new_log = response->add_logs();
+    for (const auto &log : logs)
+    {
+        auto *new_log = response->add_logs();
         new_log->set_logid(log.logId);
         new_log->set_accnum(log.accNum);
         new_log->set_userid(log.userId);
@@ -87,13 +93,15 @@ grpc::Status bankManagerImpl::ListTransactionLogsByAccNum(grpc::ServerContext *c
     return grpc::Status();
 }
 
-grpc::Status bankManagerImpl::ListAccountsByUserId(grpc::ServerContext *context, const bank::account::ListAccountsByUserIdRequest *request, bank::account::ListAccountsByUserIdResponse *response){
+grpc::Status bankManagerImpl::ListAccountsByUserId(grpc::ServerContext *context, const bank::account::ListAccountsByUserIdRequest *request, bank::account::ListAccountsByUserIdResponse *response)
+{
 
     std::vector<Account> accounts = AccountController::GetAccountsByUserId(request->userid());
 
     response->set_status(true);
-    for(const auto& account : accounts){
-        auto* new_account = response->add_accounts();
+    for (const auto &account : accounts)
+    {
+        auto *new_account = response->add_accounts();
         new_account->set_accnum(account.accNum);
         new_account->set_userid(account.userId);
         new_account->set_account_type(account.account_type);
@@ -104,18 +112,20 @@ grpc::Status bankManagerImpl::ListAccountsByUserId(grpc::ServerContext *context,
     return grpc::Status();
 }
 
-grpc::Status Transfer(grpc::ServerContext *context, const bank::account::TransferRequest *request, bank::account::TransferResponse *response){
+grpc::Status bankManagerImpl::Transfer(grpc::ServerContext *context, const bank::account::TransferRequest *request, bank::account::TransferResponse *response)
+{
 
     const auto [res, msg] = TransactionController::Transfer(request->destaccnum(), request->srcaccnum(), request->trade_amount());
 
     response->set_status(res);
     response->set_message(msg);
-    if(res){
+    if (res)
+    {
         unsigned int logid = std::stoi(msg);
         TransactionLog log = TransactionController::GetLogByLogId(logid);
 
-        auto* log_entry = response->mutable_log();
-        log_entry->set_logid(log.logId);  // 로그 ID 설정
+        auto *log_entry = response->mutable_log();
+        log_entry->set_logid(log.logId); // 로그 ID 설정
         log_entry->set_accnum(log.accNum);
         log_entry->set_userid(log.userId);
         log_entry->set_transaction_type(log.transaction_type);

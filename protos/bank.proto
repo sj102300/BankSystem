@@ -8,7 +8,7 @@ import public "customer.proto";
 package bank;
 
 service BankService {
-	rpc signUp (bank.customer.SignUpRequest) returns (bank.customer.SignUpResponse) {}
+	rpc SignUp (bank.customer.SignUpRequest) returns (bank.customer.SignUpResponse) {}
 	rpc Login (bank.customer.LogInRequest) returns (bank.customer.LogInResponse) {}
 
 	rpc CreateFixedDepositAccount(bank.account.CreateFixedDepositAccountRequest) returns (bank.account.CreateFixedDepositAccountResponse) {}

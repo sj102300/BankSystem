@@ -2,6 +2,7 @@
 #include "transaction_controller.h"
 #include "transaction_logdb.h"
 #include "get_current_time.h"
+#include "logging_namespace.h"
 
 std::tuple<bool, std::string> TransactionController::Transfer(std::string destAccNum, std::string srcAccNum, unsigned long long amount)
 {
@@ -54,7 +55,7 @@ unsigned int TransactionController::MakeTransferLog(unsigned long long trade_amo
     const auto [isAvailableSrcSavings, srcSavings] = SavingsDB::GetSavings(srcAccNum);
 
     TransactionLogDB::CreateTransactionLog(destAccNum, srcUserId, logging::TRANSFER_DEST, trade_amount, destSavings.balance);
-    TransactionLogDB::CreateTransactionLog(srcAccNum, srcUserId, logging::TRANSFER_SRC, trade_amount, srcSavings.balance);
+    TransactionLog log = TransactionLogDB::CreateTransactionLog(srcAccNum, srcUserId, logging::TRANSFER_SRC, trade_amount, srcSavings.balance);
 
-    return;
+    return log.logId;
 }
