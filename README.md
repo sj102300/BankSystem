@@ -14,15 +14,15 @@
 
 **1. 서버(Server)**
   * 기술 스택
-    : C++, SQLite3, SQLite-ORM, gRPC, protoc
+    : C++, SQLite3, SQLite-ORM, gRPC, protobuf
   * 인터넷 뱅킹의 핵심 로직 담당
   * gRPC를 이용하여 미들웨어(Spring Boot)와 고속 통신
-  * SQLite를 이용해 가볍고 신뢰성 높은 DB 구축
-  * SQLite-ORM을 활용해 SQL문 없이 DB 조작 및 관리
+  * SQLite를 이용해 별도의 설치 없이 경량 FileDB 구축
+  * 개발시 SQLite-ORM을 활용해 소스코드에 직접적인 SQL문 없이 DB 접근 및 관리(휴먼에러 감소)
   
 **2. 미들웨어(Middleware)**
    * 기술 스택
-     : Spring Boot
+     : Spring Boot, gRPC, protobuf
    * 클라이언트 요청 처리 및 서버와의 인터페이스 역할 수행
    * 클라이언트와는 REST API를 이용 / 서버와는 gRPC를 이용하여 통신
   
@@ -30,6 +30,7 @@
    * 기술 스택
      : React.js, axios
    * Axios를 이용한 REST API 통신
+   * UI로 기능 조작
   
 **4. 통신 방식 및 데이터 교환**
    * 클라이언트 ↔ 미들웨어: REST API(Axios) 기반 요청/응답
@@ -55,6 +56,7 @@
 │   ├── bank.proto
 │   ├── customer.proto
 │   └── protoStyle.md   #protobuf 코딩 규칙
+├── protos_build        #proto 빌드 후 소스파일 생성 위치
 ├── src
 │   ├── CMakeLists.txt
 │   └── Server
