@@ -11,6 +11,7 @@
 
 ## 1️⃣ 프로젝트 구조도
 ![프로젝트 구조도](https://github.com/user-attachments/assets/02392e0f-2606-4177-8cc2-45ed180d1b6b)
+
 **1. 서버(Server)**
   * 기술 스택
     : C++, SQLite3, SQLite-ORM, gRPC, protoc
