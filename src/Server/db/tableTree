@@ -1,43 +1,48 @@
 
 Table Account {
-  accId string [primary key]  //계좌번호
-  cusId integer
-  status bool
-  accountType integer
-  createdAt string
+  accId uint32 [primary key] //db의 index
+  accNum string unique //계좌 번호
+  userId string //유저 아이디
+  status bool  //계좌 상태 닫힌 계좌면 false
+  accountType uint32 //계좌 종류 구분
+  createdAt string //계좌 생성 일시
 }
 
 Table SavingsAccount{
-  accId string [primary key]
-  balance unsignedinteger
-  interestRate double
+  savingsId uint32 [primary key] //db의 index
+  accNum string unique  //계좌 번호
+  balance uint64  //잔액
+  interestRate double  //이자율
 }
 
 Table FixedDepositAccount{
-  accId string [primary key]  
-  monthlyDepositAmount unsignedinteger
-  duedate string
+  fixedDepositId uint32 [primary key] //db의 index
+  accNum string unique //계좌번호
+  monthlyPayment uint64  //월 납입금
+  duedate string  //만기일
 }
 
 Table Customer {
-  cusId string [primary key]  //회원가입 id
-  password string
-  name string
+  cusId string [primary key]  //db의 index
+  userId string //회원가입한 아이디
+  password string   //회원가입한 비밀번호
+  name string  //이름
+  createdAt string //계정 생성 일시
 }
 
 Table TransactionLog {
-  logId string [primary key]  //auto increment
-  logType integer
-  createdAt string
-  accId integer
-  cusId integer
-  tradeAmount integer //거래금액 
-  remainingBalance integer   //남은 잔액
+  logId string [primary key]  //db의 index, log 번호
+  accNum string //계좌번호
+  userId string //회원 아이디
+  transactionType uint32 //로그 종류
+  tradeAmount uint64 //거래금액 
+  remainingBalance uint64   //남은 잔액
+  createdAt string   //로그 생성 일시
 }
 
-Ref: Account.cusId > Customer.cusId
-Ref: SavingsAccount.accId - Account.accId [unique]
-Ref: FixedDepositAccount.accId - Account.accId [unique]
+Ref: Account.userId > Customer.userId
+Ref: SavingsAccount.accNum - Account.accNum [unique]
+Ref: FixedDepositAccount.accNum - Account.accNum [unique]
 
-Ref: TransactionLog.cusId > Customer.cusId
-Ref: TransactionLog.accId > Account.accId
+Ref: TransactionLog.userId > Customer.userId
+Ref: TransactionLog.accNum > Account.accNum
