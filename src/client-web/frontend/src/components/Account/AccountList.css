@@ -1,0 +1,65 @@
+.account-list-container {
+  padding: 20px;
+}
+
+.account-list-container h2 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.account-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.account-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.account-type {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.account-number {
+  color: #7f8c8d;
+  margin-bottom: 15px;
+  font-family: monospace;
+}
+
+.account-balance {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #27ae60;
+  margin-bottom: 10px;
+}
+
+.account-status {
+  color: #7f8c8d;
+}
+
+.status-active {
+  color: #27ae60;
+}
+
+.status-inactive {
+  color: #e74c3c;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #7f8c8d;
+}
+
+.error {
+  color: #e74c3c;
+  text-align: center;
+  padding: 20px;
+}
