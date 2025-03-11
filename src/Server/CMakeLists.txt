@@ -17,7 +17,7 @@ endif()
 set(PROTO_NAMES bank)
 
 # 생성된 파일들의 경로 설정
-set(PROTO_BUILD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../protos_build)
+set(PROTO_BUILD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../protos_build/Server)
 set(PROTO_SOURCES "")
 set(PROTO_HEADERS "")
 
@@ -75,7 +75,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/models/Customer
     ${CMAKE_CURRENT_SOURCE_DIR}/models/Log
     ${CMAKE_CURRENT_SOURCE_DIR}/grpcService
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../protos_build
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../protos_build/Server
 )
 
 # Configure file for paths
@@ -88,7 +88,7 @@ include_directories(${CMAKE_BINARY_DIR})
 # Define the list of directories to search
 set(SOURCE_DIRS
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../protos_build
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../protos_build/Server
 )
 
 # Initialize empty lists
