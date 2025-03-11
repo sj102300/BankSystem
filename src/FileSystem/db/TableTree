@@ -1,0 +1,7 @@
+
+Table File {
+  fileId uint32 [primary key] //db의 index 번호
+  accountType uint32
+  fileType uint32
+  path string
+}
