@@ -32,6 +32,9 @@ if [ -z "$GRPC_PLUGIN" ]; then
     exit 1
 fi
 
+# protos_build디렉토리 삭제
+rm -rf "$GENERATED_SRC_DIR"
+
 # 출력 디렉토리가 없으면 생성
 if [ ! -d "$GENERATED_SRC_DIR" ]; then
     echo "Creating output directory: $GENERATED_SRC_DIR"
