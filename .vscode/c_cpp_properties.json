@@ -4,7 +4,10 @@
             "name": "linux-gcc-x64",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/protos/**",
+                "${workspaceFolder}/protos/FileSystem/**",
                 "${workspaceFolder}/protos_build/**",
+                "${workspaceFolder}/protos_build/FileSystem/**",
                 "${workspaceFolder}/3rd_party/sqlite_orm/include/**",
                 "${workspaceFolder}/src/Server/db/**",
                 "${workspaceFolder}/src/Server/db/bank/**",

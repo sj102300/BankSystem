@@ -1,0 +1,48 @@
+
+syntax = "proto3";
+
+package file_system.account;  //계좌 관련된 파일
+
+//ListAccountFiles
+message ListAccountFilesRequest{
+    //Empty, Get Request
+}
+
+message AccountInfo{
+    uint32 account_type = 1;        //계좌 유형 번호
+    string account_name = 2;        //계좌 이름
+    string introduction = 3;        //계좌 한줄 소개
+}
+
+message ListAccountFilesResponse{
+    bool status = 1;
+    string message = 2;
+
+    repeated AccountInfo AccountInfos = 3;
+}
+
+//GetAccountIntroFile
+message GetAccountIntroFileRequest{
+    uint32 account_type = 1;
+}
+
+message GetAccountIntroFileResponse{
+    bool status = 1;
+    string message = 2;
+
+    uint32 account_type = 3;
+    bytes file = 4; //byte data로 변환해서 보냄
+}
+
+//GetAccountTermFile
+message GetAccountTermFileRequest{
+    uint32 account_type = 1;
+}
+
+message GetAccountTermFileResponse{
+    bool status = 1;
+    string message = 2;
+
+    uint32 account_type = 3;
+    bytes file = 4; //byte data로 변환해서 보냄
+}

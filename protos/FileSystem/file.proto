@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package file_system;
+
+import public "google/protobuf/empty.proto";
+import public "account.proto";
+
+service FileSystemService {
+	rpc ListAccountFiles (file_system.account.ListAccountFilesRequest) returns (file_system.account.ListAccountFilesResponse) {}
+	rpc GetAccountIntroFile (file_system.account.GetAccountIntroFileRequest) returns (file_system.account.GetAccountIntroFileResponse) {}
+	rpc GetAccountTermFile (file_system.account.GetAccountTermFileRequest) returns (file_system.account.GetAccountTermFileResponse) {}
+}
+
+//response의 1번은 api의 성공과 실패 여부를 반환합니다.
+//response의 2번은 status가 false일 경우 에러 메시지 또는 에러 코드를 반환합니다.
