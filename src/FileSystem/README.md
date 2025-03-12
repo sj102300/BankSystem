@@ -18,3 +18,8 @@ connection을 한번 보낼때마다 계속 3way handshake를 진행해서 오�
 
 ### Shell Script
 Shell Script(쉘 스크립트)는 리눅스/유닉스 환경에서 명령어를 자동 실행하도록 작성하는 스크립트 언어
+
+
+### Singleton vs Static
+둘다 한번만 생성해서 공유하는 패턴
+

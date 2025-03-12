@@ -21,7 +21,11 @@
 
                 "${workspaceFolder}/src/FileSystem/**",
                 "${workspaceFolder}/src/FileSystem/main/**",
+                "${workspaceFolder}/src/FileSystem/main/test/**",
                 "${workspaceFolder}/src/FileSystem/grpcService/**",
+                "${workspaceFolder}/src/FileSystem/db/**",
+                "${workspaceFolder}/src/FileSystem/db/tables/**",
+                "${workspaceFolder}/src/FileSystem/db/core/**",
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

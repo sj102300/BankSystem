@@ -1,7 +1,9 @@
 
-Table File {
-  fileId uint32 [primary key] //db의 index 번호
-  accountType uint32
-  fileType uint32
-  path string
+Table AccountFileInfo {
+  fileId uint32 [primary key] //db의 index 번호, 파일 고유 번호
+  fileCategory uint32 //상품소개 파일인지 개인정보 약관인지..
+  accountType uint32 //대상 계좌
+  path string   //파일 경로
+  hashNumber string //파일 무결성 검증용 해시번호
+  status bool //파일 상태
 }

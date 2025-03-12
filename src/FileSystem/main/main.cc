@@ -1,8 +1,12 @@
 #include <thread>
 #include "services.h"
+#include "file_system_database.h"
 
 int main(void)
 {
+    FileSystemDatabase* db = FileSystemDatabase::getInstance();
+    db->initStorage();
+
     // gRPC 서버를 별도의 스레드에서 실행
     std::thread server_thread(RunServer);
     server_thread.detach(); // 메인 스레드에서 분리
