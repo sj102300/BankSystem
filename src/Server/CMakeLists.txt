@@ -76,14 +76,8 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/models/Log
     ${CMAKE_CURRENT_SOURCE_DIR}/grpcService
     ${CMAKE_CURRENT_SOURCE_DIR}/../../protos_build/Server
+    ${CMAKE_CURRENT_SOURCE_DIR}/../common
 )
-
-# Configure file for paths
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/config.h.in"
-    "${CMAKE_BINARY_DIR}/config.h"
-)
-include_directories(${CMAKE_BINARY_DIR})
 
 # Define the list of directories to search
 set(SOURCE_DIRS

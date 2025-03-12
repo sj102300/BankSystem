@@ -1,7 +1,7 @@
 
 #include "transaction_logdb.h"
 #include "bank_database.h"
-#include "get_current_time.h"
+#include "myUtil.h"
 
 TransactionLog TransactionLogDB::CreateTransactionLog(std::string accNum, std::string userId, unsigned int transaction_type,
                                                       unsigned long long trade_amount, unsigned long long remaining_balance)

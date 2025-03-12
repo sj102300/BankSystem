@@ -85,5 +85,8 @@
         "options": [
             "--proto_path=protos"
         ]
-    }
+    },
+    "[cpp]": {
+    "editor.formatOnSave": false
+    },
 }

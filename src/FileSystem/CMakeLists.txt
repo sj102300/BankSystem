@@ -70,14 +70,8 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/db/tables
     ${CMAKE_CURRENT_SOURCE_DIR}/grpcService
     ${CMAKE_CURRENT_SOURCE_DIR}/../../protos_build/FileSystem
+    ${CMAKE_CURRENT_SOURCE_DIR}/../common
 )
-
-# # Configure file for paths
-# configure_file(
-#     "${CMAKE_CURRENT_SOURCE_DIR}/config.h.in"
-#     "${CMAKE_BINARY_DIR}/config.h"
-# )
-# include_directories(${CMAKE_BINARY_DIR})
 
 # Define the list of directories to search
 set(SOURCE_DIRS
@@ -111,14 +105,6 @@ add_executable(${PROJECT_NAME}
 # # 프로토콜 버퍼 소스 파일 추가
 # target_sources(${PROJECT_NAME} PRIVATE ${SOURCES})
 
-# add_library(grpc_lib
-#   ${PROTO_SOURCES}
-#   ${PROTO_HEADERS})
-# target_link_libraries(grpc_lib
-#   absl::check
-#   gRPC::grpc++_reflection
-#   gRPC::grpc++
-#   protobuf::libprotobuf)
 
 # Link libraries
 target_link_libraries(${PROJECT_NAME} 
